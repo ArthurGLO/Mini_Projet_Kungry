@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import ca.ulaval.ima.mp.R;
 
@@ -46,6 +49,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
         return rootView;
     }
+
 
     @Override
     public void onPause() {
@@ -84,9 +88,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        {
-//todo
-        }
+        LatLng lng = new LatLng(-33.667,151.206);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lng,13));
+        googleMap.addMarker(new MarkerOptions().title("hello").position(lng));
     }
 
 }
