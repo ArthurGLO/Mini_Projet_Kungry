@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     MapView mapView;
     GoogleMap map;
+    //private FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         mapView = v.findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+
 
         return v;
     }
