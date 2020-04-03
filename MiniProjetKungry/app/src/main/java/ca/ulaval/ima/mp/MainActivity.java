@@ -15,8 +15,10 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import ca.ulaval.ima.mp.ui.home.HomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener {
 
     GoogleMap googleMap;
 
@@ -51,5 +53,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Can't connect to play services", Toast.LENGTH_LONG ).show();
         }
         return false;
+    }
+
+    @Override
+    public void modelDescription() {
+
     }
 }

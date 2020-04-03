@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -24,43 +27,58 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import ca.ulaval.ima.mp.R;
+import ca.ulaval.ima.mp.utils.MapStateManager;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     MapView mapView;
     GoogleMap map;
     //private FusedLocationProviderClient mFusedLocationClient;
+    private MapFragmentListener mListener;
+
+    public HomeFragment(){}
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         //Gets the MapView from the XML layout and creates it
-        mapView = v.findViewById(R.id.mapview);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
 
-
+        initMap();
 
         return v;
     }
 
 
+    private void initMap(){
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+    }
+
     @Override
     public void onMapReady(GoogleMap mMap) {
         map = mMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.clear(); //clear old markers
-        goToLocationZoom(37.4219999, -122.0862462);
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
     }
+
+
+
+
+
+
 
 
     private void goToLocationZoom(double v, double v1) {
@@ -81,28 +99,40 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
 
     @Override
-    public void onResume() {
-        mapView.onResume();
-        super.onResume();
-    }
-
-
-    @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+        MapStateManager mgr = new MapStateManager(getContext());
+        mgr.saveMapState(map);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
+    public void onResume() {
+        super.onResume();
+        initMap();
+
     }
 
     @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof HomeFragment.MapFragmentListener) {
+            mListener = (HomeFragment.MapFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    public interface MapFragmentListener {
+        // TODO: Update argument type and name
+        void modelDescription();
     }
 
 }
