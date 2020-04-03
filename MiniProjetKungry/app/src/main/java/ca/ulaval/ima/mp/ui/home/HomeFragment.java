@@ -1,45 +1,46 @@
 package ca.ulaval.ima.mp.ui.home;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import ca.ulaval.ima.mp.R;
 import ca.ulaval.ima.mp.utils.MapStateManager;
 
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
-    MapView mapView;
-    GoogleMap map;
-    //private FusedLocationProviderClient mFusedLocationClient;
+    private Boolean mLocationPermissionsGranted = false;
+    private GoogleMap map;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
     private MapFragmentListener mListener;
+    private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    private static final float DEFAULT_ZOOM = 15f;
 
     public HomeFragment(){}
 
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         //Gets the MapView from the XML layout and creates it
 
-        initMap();
+        getLocationPermission();
 
         return v;
     }
@@ -72,10 +73,102 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         map = mMap;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            map.setMyLocationEnabled(true);
+            map.getUiSettings().setMyLocationButtonEnabled(false);
+
+        }
+
     }
 
+    private void getDeviceLocation(){
+        Log.e("DEBUG", "getDeviceLocation: getting the devices current location");
 
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
 
+        try{
+            if(mLocationPermissionsGranted){
+
+                final Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if(task.isSuccessful()){
+                            Log.e("DEBUG", "onComplete: found location!");
+                            Location currentLocation = (Location) task.getResult();
+
+                            goToLocationZoom(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+                        }else{
+                            Log.e("DEBUG", "onComplete: current location is null");
+                            Toast.makeText(getContext(), "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }catch (SecurityException e){
+            Log.e("DEBUG", "getDeviceLocation: SecurityException: " + e.getMessage() );
+        }
+    }
+
+    private void moveCamera(LatLng latLng){
+        Log.e("DEBUG", "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, HomeFragment.DEFAULT_ZOOM));
+    }
+
+    private void getLocationPermission(){
+        Log.e("DEBUG", "getLocationPermission: getting location permissions");
+        String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if(ContextCompat.checkSelfPermission(getContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(getContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                mLocationPermissionsGranted = true;
+                initMap();
+            }else{
+                ActivityCompat.requestPermissions(getActivity(),
+                        permissions,
+                        LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        }else{
+            ActivityCompat.requestPermissions(getActivity(),
+                    permissions,
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.e("DEBUG", "onRequestPermissionsResult: called.");
+        mLocationPermissionsGranted = false;
+
+        switch(requestCode){
+            case LOCATION_PERMISSION_REQUEST_CODE:{
+                if(grantResults.length > 0){
+                    for(int i = 0; i < grantResults.length; i++){
+                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                            mLocationPermissionsGranted = false;
+                            Log.e("DEBUG", "onRequestPermissionsResult: permission failed");
+                            return;
+                        }
+                    }
+                    Log.e("DEBUG", "onRequestPermissionsResult: permission granted");
+                    mLocationPermissionsGranted = true;
+                    //initialize our map
+                    initMap();
+                }
+            }
+        }
+    }
 
 
 
@@ -93,7 +186,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(v,v1))
-                .title("Spider Man"));
+                .title("Vous êtes ici"));
 
     }
 
