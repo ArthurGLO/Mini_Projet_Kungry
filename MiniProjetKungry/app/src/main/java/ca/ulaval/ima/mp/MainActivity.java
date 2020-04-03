@@ -1,8 +1,8 @@
 package ca.ulaval.ima.mp;
 
+import android.app.Dialog;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,7 +10,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import ca.ulaval.ima.mp.ui.home.HomeFragment;
+
+
+public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener {
+
+    GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +35,28 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        if(googleServicesAvailable()){
+            Toast.makeText(this,"Perfecto !!",Toast.LENGTH_LONG).show();
+        }
     }
 
+    public boolean googleServicesAvailable(){
+        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        int isAvailable = api.isGooglePlayServicesAvailable(this);
+        if (isAvailable == ConnectionResult.SUCCESS){
+            return true;
+        }else if (api.isUserResolvableError(isAvailable)){
+            Dialog dialog = api.getErrorDialog(this,isAvailable,0);
+            dialog.show();
+        }else{
+            Toast.makeText(this,"Can't connect to play services", Toast.LENGTH_LONG ).show();
+        }
+        return false;
+    }
+
+    @Override
+    public void modelDescription() {
+
+    }
 }
