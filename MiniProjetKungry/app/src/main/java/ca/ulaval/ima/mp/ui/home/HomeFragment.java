@@ -103,8 +103,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                         if(task.isSuccessful()){
                             Log.e("DEBUG", "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
+                            double latitude = currentLocation.getLatitude();
+                            double longitude = currentLocation.getLongitude();
 
-                            goToLocationZoom(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            goToLocationZoom(latitude, longitude);
 
                         }else{
                             Log.e("DEBUG", "onComplete: current location is null");
@@ -172,8 +174,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
 
 
-
-
     private void goToLocationZoom(double v, double v1) {
         CameraPosition googlePlex = CameraPosition.builder()
                 .target(new LatLng(v,v1))
@@ -226,6 +226,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     public interface MapFragmentListener {
         // TODO: Update argument type and name
         void modelDescription();
+
     }
 
 }

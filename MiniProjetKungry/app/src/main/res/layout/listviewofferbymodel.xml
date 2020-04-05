@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_height="131dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="153dp"
+            android:layout_height="130dp" />
+
+        <TextView
+            android:id="@+id/restoname"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_toRightOf="@id/imageView"
+            android:paddingLeft="15dp"
+            android:textColor="#333"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+         <TextView
+            android:id="@+id/descriptiontype"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restoname"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="55dp"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_toRightOf="@id/imageView"
+            android:paddingLeft="15dp"
+            android:text="Snack/Food + Comfort food"
+            android:textColor="#333"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_toRightOf="@id/imageView"
+            android:layout_below="@id/descriptiontype"
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp">
+
+            <RatingBar
+                android:id="@+id/MyRating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginTop="18dp"
+                android:foregroundGravity="center"
+                android:isIndicator="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="4dp"
+                android:scaleX="1.1"
+                android:scaleY="1.5"
+                android:max="5"
+                android:stepSize="0.1" />
+
+            <TextView
+                android:id="@+id/reviewsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="12dp"
+                android:layout_toEndOf="@id/MyRating"
+                android:layout_toRightOf="@id/MyRating"
+                android:paddingLeft="9dp"
+                android:text="Snack"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textdistance"
+                android:layout_width="77dp"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="55dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="12dp"
+                android:layout_toEndOf="@id/reviewsCount"
+                android:layout_toRightOf="@id/reviewsCount"
+                android:paddingLeft="4dp"
+                android:text="45 km"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/marker"
+                android:layout_width="20dp"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/reviewsCount"
+                android:layout_toRightOf="@id/reviewsCount"
+                android:gravity="center_vertical"
+                app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+        </RelativeLayout>
+
+
+
+
+
+    </RelativeLayout>
+</LinearLayout>
