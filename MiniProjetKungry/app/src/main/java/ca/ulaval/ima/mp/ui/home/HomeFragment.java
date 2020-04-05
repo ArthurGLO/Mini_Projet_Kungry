@@ -15,6 +15,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +33,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import ca.ulaval.ima.mp.MainActivity;
 import ca.ulaval.ima.mp.R;
 import ca.ulaval.ima.mp.utils.MapStateManager;
 
@@ -75,6 +86,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
+            showRestaurantPlaces();
 
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
@@ -86,6 +98,79 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         }
 
+    }
+
+    private void showRestaurantPlaces(){
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+        try{
+            if(mLocationPermissionsGranted){
+
+                final Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if(task.isSuccessful()){
+                            Location currentLocation = (Location) task.getResult();
+                            double latitude = currentLocation.getLatitude();
+                            double longitude = currentLocation.getLongitude();
+                            showPlaces(latitude,longitude);
+
+                        }else{
+                            Log.e("DEBUG", "onComplete: current location is null");
+                            Toast.makeText(getContext(), "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }catch (SecurityException e){
+            Log.e("DEBUG", "getDeviceLocation: SecurityException: " + e.getMessage() );
+        }
+    }
+
+
+    private void  showPlaces(double latitude, double longitude){
+        final RequestQueue queue = Volley.newRequestQueue(getContext());
+        final String url = "https://kungry.ca/api/v1/restaurant/search/?latitude="+latitude+"&longitude="+longitude+"&radius=6";
+
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            final JSONObject jsonObject = response.getJSONObject("content");
+                            final JSONArray jsonArray = jsonObject.getJSONArray("results");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject objecti = jsonArray.getJSONObject(i);
+                                JSONObject locationObject = objecti.getJSONObject("location");
+                                String restoLatitude = locationObject.getString("latitude");
+                                String restoLongitude = locationObject.getString("longitude");
+                                double lat = Double.parseDouble(restoLatitude);
+                                double longitude = Double.parseDouble(restoLongitude);
+
+                                map.addMarker(new MarkerOptions()
+                                        .position(new LatLng(lat,longitude))
+                                        .title("Vous êtes ici"));
+
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     private void getDeviceLocation(){
@@ -225,7 +310,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     public interface MapFragmentListener {
         // TODO: Update argument type and name
-        void modelDescription();
+        void showRestaurantPlace();
 
     }
 
