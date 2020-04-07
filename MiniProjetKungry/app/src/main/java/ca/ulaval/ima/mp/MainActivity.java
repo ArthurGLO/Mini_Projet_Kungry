@@ -1,6 +1,7 @@
 package ca.ulaval.ima.mp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,7 +48,7 @@ import ca.ulaval.ima.mp.ui.home.HomeFragment;
 import ca.ulaval.ima.mp.utils.CustomListview;
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener, DashboardFragment.RestaurantFragmentListener, OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener, DashboardFragment.RestaurantFragmentListener {
 
     GoogleMap map;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
 
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "https://kungry.ca/api/v1/restaurant/search/?latitude="+latitude+"&longitude="+longitude+"&radius=6";
+        final String url = "https://kungry.ca/api/v1/restaurant/search/?page=1&page_size=6&latitude="+latitude+"&longitude="+longitude+"&radius=6";
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -145,15 +146,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                                 JSONObject objecti = jsonArray.getJSONObject(i);
                                 String name = objecti.getString("name");
                                 String image = objecti.getString("image");
-                                int dist = objecti.getInt("distance");
+                                String dist = objecti.getString("distance");
                                 int countReview = objecti.getInt("review_count");
                                 String typeRestaut = objecti.getString("type");
+                                float rate = (float)objecti.getDouble("review_average");
                                 restoName.add(name);
                                  img.add(image);
                                 type.add(typeRestaut);
                                  reviewsCount.add(String.valueOf(countReview));
-                                 restoKm.add(String.valueOf(dist));
-                               reviewsStars.add("3");
+                                 restoKm.add(dist);
+                               reviewsStars.add(String.valueOf(rate));
                             }
 
                             CustomListview customListview = new CustomListview(MainActivity.this,restoName,
@@ -196,80 +198,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         queue.add(getRequest);
     }
 
-    @Override
-    public void showRestaurantPlace(){
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        try{
-            if(!mLocationPermissionsGranted){
-
-                final Task location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()){
-                            Log.e("DEBUG", "onComplete: found location!");
-                            Location currentLocation = (Location) task.getResult();
-                            double latitude = currentLocation.getLatitude();
-                            double longitude = currentLocation.getLongitude();
-                            showPlaces(latitude,longitude);
-
-                        }else{
-                            Log.e("DEBUG", "onComplete: current location is null");
-                            Toast.makeText(MainActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        }catch (SecurityException e){
-            Log.e("DEBUG", "getDeviceLocation: SecurityException: " + e.getMessage() );
-        }
-    }
-
-
-    private void  showPlaces(double latitude, double longitude){
-        final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "https://kungry.ca/api/v1/restaurant/search/?latitude="+latitude+"&longitude="+longitude+"&radius=6";
-
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
-                        try {
-                            final JSONObject jsonObject = response.getJSONObject("content");
-                            final JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject objecti = jsonArray.getJSONObject(i);
-                                JSONObject locationObject = objecti.getJSONObject("location");
-                                String restoLatitude = locationObject.getString("latitude");
-                                String restoLongitude = locationObject.getString("longitude");
-                                double lat = Double.parseDouble(restoLatitude);
-                                double longitude = Double.parseDouble(restoLongitude);
-
-
-
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        );
-
-// add it to the RequestQueue
-        queue.add(getRequest);
-    }
-
     private void getRestaurantDescription(int id,double lat, double longitude){
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/restaurant/"+id+"/?latitude="+lat+"&longitude="+longitude;
@@ -286,6 +214,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             String name = obj.getString("name");
                             Toast.makeText(MainActivity.this,"Welcome to "+" "+name, Toast.LENGTH_LONG ).show();
 
+                            Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
+                            //intent.putExtra(SiteWebInterne.EXTRA_SITE_WEB_EXTERNE, UrlToLoad);
+                            startActivity(intent);
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -306,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
+    public void showRestaurantPlace() {
+
     }
 }

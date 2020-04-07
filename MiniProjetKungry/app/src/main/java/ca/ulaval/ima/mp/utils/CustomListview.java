@@ -1,8 +1,6 @@
 package ca.ulaval.ima.mp.utils;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +33,7 @@ public class CustomListview extends ArrayAdapter<String> {
                           ArrayList<String> restoStars,
                           ArrayList<String> restoImg,
                           ArrayList<String> restoType) {
-        super(context, R.layout.listviewofferbymodel,restoTitle);
+        super(context, R.layout.listviewofrestaurant,restoTitle);
         this.context = context;
         this.restoTitle = restoTitle;
         this.restoImg = restoImg;
@@ -54,7 +52,7 @@ public class CustomListview extends ArrayAdapter<String> {
 
         if(r == null){
             LayoutInflater layoutInflater = context.getLayoutInflater();
-            r = layoutInflater.inflate(R.layout.listviewofferbymodel,null,true);
+            r = layoutInflater.inflate(R.layout.listviewofrestaurant,null,true);
             viewHolder = new ViewHolder(r);
             r.setTag(viewHolder);
         }else {
@@ -62,8 +60,8 @@ public class CustomListview extends ArrayAdapter<String> {
         }
 
         viewHolder.name.setText(restoTitle.get(position));
-        viewHolder.descript.setText(restoType.get(position)+"/Food + Comfort food");
-        viewHolder.kilometer.setText(restoKilometer.get(position)+""+"km");
+        viewHolder.descript.setText(restoType.get(position)+"/Food • Confort food");
+        viewHolder.kilometer.setText(restoKilometer.get(position)+" "+"km");
         Picasso.with(context).load(restoImg.get(position)).resize(140,115).into(viewHolder.imageView);
         viewHolder.ratings.setRating(Float.parseFloat(restoStars.get(position)));
         viewHolder.reviews.setText("("+restoReviews.get(position)+")");
