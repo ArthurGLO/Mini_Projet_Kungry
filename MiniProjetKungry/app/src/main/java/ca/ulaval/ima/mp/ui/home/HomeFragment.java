@@ -1,13 +1,22 @@
 package ca.ulaval.ima.mp.ui.home;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,22 +36,30 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import ca.ulaval.ima.mp.MainActivity;
 import ca.ulaval.ima.mp.R;
+import ca.ulaval.ima.mp.domain.Restaurant;
+import ca.ulaval.ima.mp.utils.CustomInfoWindowAdapter;
 import ca.ulaval.ima.mp.utils.MapStateManager;
 
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback{
+public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap map;
@@ -52,12 +69,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private static final String COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
+    private TextView name1;
+    private TextView descript;
+    private TextView kilometer;
+    private RatingBar ratings;
+    private TextView reviews1;
+    private ImageView imageView;
 
     public HomeFragment(){}
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        View includedLayout = getView().findViewById(R.id.card);
+        includedLayout.setVisibility(View.INVISIBLE);
+
+        View includedLayout1 = getView().findViewById(R.id.cardshow);
+        includedLayout1.setVisibility(View.VISIBLE);
     }
 
 
@@ -129,10 +157,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
 
     private void  showPlaces(double latitude, double longitude){
+
+        name1 = getView().findViewById(R.id.restoname1);
+        descript = getView().findViewById(R.id.descriptiontype1);
+        kilometer = getView().findViewById(R.id.textdistance1);
+        ratings = getView().findViewById(R.id.MyRating1);
+        imageView = getView().findViewById(R.id.imageView1);
+        reviews1 = getView().findViewById(R.id.reviewsCount1);
+        final ArrayList<Restaurant> restaurants = new ArrayList<>();
+
         final RequestQueue queue = Volley.newRequestQueue(getContext());
         final String url = "https://kungry.ca/api/v1/restaurant/search/?latitude="+latitude+"&longitude="+longitude+"&radius=6";
 
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        final JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -148,12 +185,79 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                                 double lat = Double.parseDouble(restoLatitude);
                                 double longitude = Double.parseDouble(restoLongitude);
 
+                                final String name = objecti.getString("name");
+                                final String dist = objecti.getString("distance");
+                                final String image1 = objecti.getString("image");
+                                final int countReview = objecti.getInt("review_count");
+                                final String typeRestaut = objecti.getString("type");
+                                final float rate = (float)objecti.getDouble("review_average");
+
                                 map.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat,longitude))
-                                        .title("Vous êtes ici"));
+                                        .title(name));
+                                Restaurant restaurant = new Restaurant(name,typeRestaut,countReview,rate,image1,dist);
+                                restaurants.add(restaurant);
 
+
+                               /** MarkerOptions markerOpt = new MarkerOptions();
+                                markerOpt.position(new LatLng(lat, longitude))
+                                        .title(name)
+                                        .snippet(dist).infoWindowAnchor(1,9);
+                                String image = objecti.getString("image");
+                                String typeRestaut = objecti.getString("type");
+                                float rate = (float)objecti.getDouble("review_average");
+                                Restaurant restaurant = new Restaurant();
+
+                                restaurant.setReview_average(rate);
+                                restaurant.setImage(image);
+                                restaurant.setType(typeRestaut);
+                                restaurant.setReview_count(reviews);
+
+                                //Set Custom InfoWindow Adapter
+                                CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(getActivity());
+                                map.setInfoWindowAdapter(adapter);
+
+                                Marker m = map.addMarker(markerOpt);
+                                m.setTag(restaurant);
+                                m.showInfoWindow();
+                                View includedLayout = getView().findViewById(R.id.card);
+                                includedLayout.setVisibility(View.INVISIBLE);
+
+                                map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
+                                {
+                                    @Override
+                                    public void onInfoWindowClick(Marker marker)
+                                    {
+                                        // Called when ANY InfoWindow is clicked
+                                        Toast.makeText(getContext(), "Welcomeeeeeee", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });*/
 
                             }
+
+                            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+
+                                    for(int i = 0; i < restaurants.size(); i++){
+                                        if(marker.getTitle().equals(restaurants.get(i).getRestaurantName())){
+                                            View includedLayout1 = getView().findViewById(R.id.cardshow);
+                                            includedLayout1.setVisibility(View.INVISIBLE);
+                                            View includedLayout = getView().findViewById(R.id.card);
+                                            includedLayout.setVisibility(View.VISIBLE);
+
+                                            name1.setText(restaurants.get(i).getRestaurantName());
+                                            descript.setText(restaurants.get(i).getType()+"/Food • Confort food");
+                                            kilometer.setText(restaurants.get(i).getDistance()+" "+"km");
+                                            Picasso.with(getContext()).load(restaurants.get(i).getImage()).resize(140,115).into(imageView);
+                                            ratings.setRating(restaurants.get(i).getReview_average());
+                                            reviews1.setText("("+restaurants.get(i).getReview_count()+")");
+                                        }
+                                    }
+                                    return false;
+                                }
+                            });
 
 
                         } catch (JSONException e) {
@@ -172,6 +276,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 // add it to the RequestQueue
         queue.add(getRequest);
     }
+
 
     private void getDeviceLocation(){
         Log.e("DEBUG", "getDeviceLocation: getting the devices current location");
@@ -262,7 +367,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private void goToLocationZoom(double v, double v1) {
         CameraPosition googlePlex = CameraPosition.builder()
                 .target(new LatLng(v,v1))
-                .zoom(10)
+                .zoom(13)
                 .bearing(0)
                 .tilt(45)
                 .build();

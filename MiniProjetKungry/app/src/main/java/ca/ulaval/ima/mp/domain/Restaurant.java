@@ -6,13 +6,13 @@ public class Restaurant {
     private String cookName;
     private String type;
     private int review_count;
-    private  int review_average;
+    private  float review_average;
     private String image;
     private String distance;
     private String location;
 
     public Restaurant( String restaurantName, String cookName, String type,
-                       int review_count, int review_average, String image, String distance, String location){
+                       int review_count, float review_average, String image, String distance, String location){
 
         this.restaurantName = restaurantName;
         this.cookName = cookName;
@@ -25,7 +25,7 @@ public class Restaurant {
     }
 
     public Restaurant( String restaurantName, String type,
-                       int review_count, int review_average, String image, String distance){
+                       int review_count, float review_average, String image, String distance){
 
         this.restaurantName = restaurantName;
         this.type = type;
@@ -35,7 +35,9 @@ public class Restaurant {
         this.distance = distance;
     }
 
-    public int getReview_average() {
+    public Restaurant(){}
+
+    public float getReview_average() {
         return review_average;
     }
 
@@ -83,7 +85,7 @@ public class Restaurant {
         this.restaurantName = restaurantName;
     }
 
-    public void setReview_average(int review_average) {
+    public void setReview_average(float review_average) {
         this.review_average = review_average;
     }
 
