@@ -15,27 +15,495 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/descriptionModel"
             android:layout_width="match_parent"
-            android:layout_height="499dp"
+            android:layout_height="1900dp"
             android:layout_marginBottom="5dp">
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"/>
+                android:layout_height="250dp"
+                android:contentDescription="Alorsssss" />
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="L'affaire"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:text="/Food-Confort"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:id="@+id/rel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_type"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp">
+
+                <RatingBar
+                    android:id="@+id/MyRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toEndOf="@+id/textdistance"
+                    android:layout_toRightOf="@+id/marker"
+                    android:foregroundGravity="center"
+
+                    android:isIndicator="true"
+                    android:max="5"
+                    android:scaleX="1.5"
+                    android:scaleY="1.8"
+                    android:stepSize="0.1" />
+
+                <TextView
+                    android:id="@+id/textcount"
+                    android:layout_width="80dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_toEndOf="@+id/MyRating"
+                    android:layout_toRightOf="@+id/MyRating"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:text="(333)"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/textdistance"
+                    android:layout_width="80dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/marker"
+                    android:layout_toRightOf="@+id/marker"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:text="45 km"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:id="@+id/marker"
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relcall"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/rel1"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="20dp"
+                android:background="#F2F2F2">
+
+                <ImageView
+                    android:id="@+id/call"
+                    android:layout_width="59dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="11dp"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_call_foreground" />
+
+                <TextView
+                    android:id="@+id/textcall"
+                    android:layout_width="85dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/call"
+                    android:layout_toRightOf="@+id/call"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:text="45 km"
+                    android:textSize="23sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLink"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/relcall"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="4dp"
+                android:background="#F2F2F2">
+
+                <ImageView
+                    android:id="@+id/link"
+                    android:layout_width="59dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="11dp"
+                    android:gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_link_foreground" />
+
+                <TextView
+                    android:id="@+id/textlink"
+                    android:layout_width="85dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/link"
+                    android:layout_toRightOf="@+id/link"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:text="45 km"
+                    android:textSize="23sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtHeure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relLink"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:text="Heures"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp" />
+
+            <RelativeLayout
+                android:id="@+id/reldays"
+                android:layout_width="398dp"
+                android:layout_height="212dp"
+                android:layout_below="@id/txtHeure"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="1dp"
+                android:background="@android:drawable/dialog_holo_light_frame">
+
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="13dp"
+                    android:text="Lundi"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/t1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Mardi"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t2"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Mercredi"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t3"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Jeudi"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t4"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Vendredi"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t5"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Samedi"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t6"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Dimanche"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/t11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toEndOf="@+id/t1"
+                    android:layout_toRightOf="@+id/t1"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/t22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/t1"
+                    android:layout_marginStart="128dp"
+                    android:layout_marginLeft="128dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@+id/t2"
+                    android:layout_toRightOf="@+id/t2"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/t33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t2"
+                    android:layout_marginStart="128dp"
+                    android:layout_marginLeft="128dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@+id/t2"
+                    android:layout_toRightOf="@+id/t2"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/t44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t3"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@+id/t4"
+                    android:layout_toRightOf="@+id/t4"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/t55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t4"
+                    android:layout_marginStart="104dp"
+                    android:layout_marginLeft="104dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@+id/t5"
+                    android:layout_toRightOf="@+id/t5"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/t66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t5"
+                    android:layout_marginStart="114dp"
+                    android:layout_marginLeft="114dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@+id/t6"
+                    android:layout_toRightOf="@+id/t6"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/t77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t6"
+                    android:layout_marginStart="96dp"
+                    android:layout_marginLeft="96dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/t7"
+                    android:layout_toRightOf="@+id/t7"
+                    android:text="Lundi"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtlieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lieu"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/reldays"/>
+
+            <RelativeLayout
+                android:id="@+id/relMap"
+                android:layout_width="402dp"
+                android:layout_height="277dp"
+                android:layout_below="@id/txtlieu"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="1dp"
+                android:background="@android:drawable/dialog_holo_light_frame">
+
+                <RelativeLayout
+                    android:id="@+id/relfragMap"
+                    android:layout_width="405dp"
+                    android:layout_height="204dp">
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/fragment2"
+                        android:name="ca.ulaval.ima.mp.ui.fragmentpackage.MapFragmentClone"
+                        android:layout_width="match_parent"
+                        android:layout_height="196dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/txtgeolocation"
+                    android:layout_width="377dp"
+                    android:layout_height="62dp"
+                    android:layout_below="@+id/relfragMap"
+                    android:layout_marginTop="-7dp">
+
+                    <ImageView
+                        android:id="@+id/marker1"
+                        android:layout_width="39dp"
+                        android:layout_height="27dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="18dp"
+                        android:gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/geolocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_toEndOf="@+id/marker1"
+                        android:layout_toRightOf="@+id/marker1"
+                        android:gravity="center_vertical"
+                        android:text="Boulevard"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/eval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relMap"
+                android:text="Évaluations"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:id="@+id/txteval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relMap"
+                android:text="(44)"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="15dp"
+                android:layout_toEndOf="@+id/eval"
+                android:layout_toRightOf="@+id/eval" />
+
+            <RelativeLayout
+                android:layout_width="390dp"
+                android:layout_height="540dp"
+                android:layout_below="@id/txteval"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp">
+
+
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"/>
 
         <RelativeLayout
             android:id="@+id/salorDescription"
             android:layout_width="match_parent"
-            android:layout_height="236dp">
+            android:layout_height="236dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp">
 
 
         </RelativeLayout>
