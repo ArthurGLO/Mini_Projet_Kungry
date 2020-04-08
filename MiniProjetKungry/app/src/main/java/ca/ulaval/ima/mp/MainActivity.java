@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         queue.add(getRequest);
     }
 
-    private void getRestaurantDescription(int id,double lat, double longitude){
+    private void getRestaurantDescription(int id, final double lat, final double longitude){
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/restaurant/"+id+"/?latitude="+lat+"&longitude="+longitude;
 
@@ -212,10 +212,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             final JSONArray jsonArray = jsonObject.getJSONArray("cuisine");
                             JSONObject obj = jsonArray.getJSONObject(0);
                             String name = obj.getString("name");
-                            Toast.makeText(MainActivity.this,"Welcome to "+" "+name, Toast.LENGTH_LONG ).show();
+                            JSONObject objLocation = jsonObject.getJSONObject("location");
+                            double lat = objLocation.getDouble("latitude");
+                            double longitude = objLocation.getDouble("longitude");
+
+                            double[] latLng = {lat,longitude};
+
 
                             Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
-                            //intent.putExtra(SiteWebInterne.EXTRA_SITE_WEB_EXTERNE, UrlToLoad);
+                            intent.putExtra("location", latLng);
                             startActivity(intent);
 
 
@@ -242,4 +247,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     public void showRestaurantPlace() {
 
     }
+
+
 }

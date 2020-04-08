@@ -310,7 +310,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void moveCamera(LatLng latLng){
+    public void moveCamera(LatLng latLng){
         Log.e("DEBUG", "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, HomeFragment.DEFAULT_ZOOM));
     }
@@ -386,6 +386,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         super.onPause();
         MapStateManager mgr = new MapStateManager(getContext());
         mgr.saveMapState(map);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Override
