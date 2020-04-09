@@ -1,6 +1,9 @@
 package ca.ulaval.ima.mp.domain;
 
-public class Restaurant {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Restaurant implements Parcelable {
 
     private String restaurantName;
     private String cookName;
@@ -10,19 +13,22 @@ public class Restaurant {
     private String image;
     private String distance;
     private String location;
+    private String webSite ;
+    private String phone;
 
-    public Restaurant( String restaurantName, String cookName, String type,
-                       int review_count, float review_average, String image, String distance, String location){
+    public Restaurant( String restaurantName, String webSite, String phone, String type,
+                       int review_count, float review_average, String image, String distance){
 
         this.restaurantName = restaurantName;
-        this.cookName = cookName;
+        this.webSite = webSite;
+        this.phone = phone;
         this.type = type;
         this.review_count = review_count;
         this.review_average = review_average;
         this.image = image;
         this.distance = distance;
-        this.location = location;
     }
+
 
     public Restaurant( String restaurantName, String type,
                        int review_count, float review_average, String image, String distance){
@@ -36,6 +42,22 @@ public class Restaurant {
     }
 
     public Restaurant(){}
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
 
     public float getReview_average() {
         return review_average;
@@ -100,6 +122,49 @@ public class Restaurant {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    protected Restaurant(Parcel in) {
+        restaurantName = in.readString();
+        cookName = in.readString();
+        type = in.readString();
+        review_count = in.readInt();
+        review_average = in.readFloat();
+        image = in.readString();
+        distance = in.readString();
+        location = in.readString();
+        webSite = in.readString();
+        phone = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(restaurantName);
+        dest.writeString(cookName);
+        dest.writeString(type);
+        dest.writeInt(review_count);
+        dest.writeFloat(review_average);
+        dest.writeString(image);
+        dest.writeString(distance);
+        dest.writeString(location);
+        dest.writeString(webSite);
+        dest.writeString(phone);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Restaurant> CREATOR = new Parcelable.Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel in) {
+            return new Restaurant(in);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
 }
-
-
