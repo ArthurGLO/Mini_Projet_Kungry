@@ -25,7 +25,7 @@
                 <ImageView
                     android:id="@+id/img"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="290dp"
                     android:contentDescription="Alorsssss" />
 
                 <TextView
@@ -36,7 +36,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="L'affaire"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="8dp"
                     android:text="/Food-Confort"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <RelativeLayout
                     android:id="@+id/rel1"
@@ -63,9 +63,9 @@
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="13dp"
                         android:layout_toEndOf="@+id/textdistance"
                         android:layout_toRightOf="@+id/marker"
                         android:foregroundGravity="center"
@@ -73,7 +73,7 @@
                         android:isIndicator="true"
                         android:max="5"
                         android:scaleX="1.5"
-                        android:scaleY="1.8"
+                        android:scaleY="1.3"
                         android:stepSize="0.1" />
 
                     <TextView
@@ -83,13 +83,13 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="4dp"
                         android:layout_toEndOf="@+id/MyRatingDetails"
                         android:layout_toRightOf="@+id/MyRatingDetails"
                         android:gravity="center_vertical"
                         android:paddingLeft="4dp"
                         android:text="(333)"
-                        android:textSize="21sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/textdistance"
@@ -104,14 +104,14 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="4dp"
                         android:text="45 km"
-                        android:textSize="21sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:id="@+id/marker"
-                        android:layout_width="30dp"
-                        android:layout_height="28dp"
+                        android:layout_width="28dp"
+                        android:layout_height="21dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="11dp"
                         android:gravity="center_vertical"
                         app:srcCompat="@drawable/ic_location_on_black_24dp" />
 
@@ -119,8 +119,8 @@
 
                 <RelativeLayout
                     android:id="@+id/relcall"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_width="371dp"
+                    android:layout_height="61dp"
                     android:layout_below="@id/rel1"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
@@ -133,33 +133,33 @@
                         android:layout_width="59dp"
                         android:layout_height="49dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="11dp"
+                        android:layout_marginTop="8dp"
                         android:foregroundGravity="center_vertical"
                         android:gravity="center_vertical"
                         app:srcCompat="@drawable/ic_call_foreground" />
 
                     <TextView
                         android:id="@+id/textcall"
-                        android:layout_width="85dp"
+                        android:layout_width="match_parent"
                         android:layout_height="49dp"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="9dp"
                         android:layout_marginLeft="9dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:layout_toEndOf="@+id/call"
                         android:layout_toRightOf="@+id/call"
                         android:foregroundGravity="center_vertical"
                         android:gravity="center_vertical"
                         android:paddingLeft="4dp"
-                        android:text="45 km"
-                        android:textSize="23sp" />
+                        android:text="(418) 271-4000"
+                        android:textSize="19sp" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/relLink"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_width="369dp"
+                    android:layout_height="60dp"
                     android:layout_below="@id/relcall"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
@@ -174,24 +174,24 @@
                         android:layout_width="59dp"
                         android:layout_height="49dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="11dp"
+                        android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         app:srcCompat="@drawable/ic_link_foreground" />
 
                     <TextView
                         android:id="@+id/textlink"
-                        android:layout_width="85dp"
+                        android:layout_width="match_parent"
                         android:layout_height="49dp"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="9dp"
                         android:layout_marginLeft="9dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:layout_toEndOf="@+id/link"
                         android:layout_toRightOf="@+id/link"
                         android:gravity="center_vertical"
                         android:paddingLeft="4dp"
-                        android:text="45 km"
-                        android:textSize="23sp" />
+                        android:text="Site web de l’entreprise"
+                        android:textSize="19sp" />
                 </RelativeLayout>
 
                 <TextView
@@ -208,8 +208,8 @@
 
                 <RelativeLayout
                     android:id="@+id/reldays"
-                    android:layout_width="398dp"
-                    android:layout_height="212dp"
+                    android:layout_width="368dp"
+                    android:layout_height="210dp"
                     android:layout_below="@id/txtHeure"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"

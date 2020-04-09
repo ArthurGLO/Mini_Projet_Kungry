@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.dashboard.DashboardFragment;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
 import ca.ulaval.ima.mp.utils.CustomListview;
@@ -204,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         final ArrayList<String> reviewsName = new ArrayList<>();
         final ArrayList<String> reviewsDesc = new ArrayList<>();
         final ArrayList<String> reviewsImages = new ArrayList<>();
+        final ArrayList<String> hour = new ArrayList<>();
 
 
 
@@ -220,76 +222,112 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                         try {
                             final JSONObject jsonObject = response.getJSONObject("content");
                             final JSONArray jsonArray = jsonObject.getJSONArray("cuisine");
-                            JSONObject obj = jsonArray.getJSONObject(0);
-                            String name = obj.getString("name");
                             JSONObject objLocation = jsonObject.getJSONObject("location");
                             double lat = objLocation.getDouble("latitude");
                             double longitude = objLocation.getDouble("longitude");
 
                             JSONArray reviewsArray = jsonObject.getJSONArray("reviews");
+                            String evluation = String.valueOf(reviewsArray.length());
                             for(int i =0 ; i < 3;i++){
-                                if( reviewsArray.isNull(i)){
-                                    Toast.makeText(MainActivity.this, "Plus de reviews de clients pour ce restaurant", Toast.LENGTH_SHORT).show();
+                                if(reviewsArray.length() != 0 && !(reviewsArray.isNull(i))) {
 
-                                }else {
-                                JSONObject object1 = reviewsArray.getJSONObject(i);
-                                String revDate = object1.getString("date");
+                                    JSONObject object1 = reviewsArray.getJSONObject(i);
+                                    String revDate = object1.getString("date");
 
-                                String[] words = revDate.split("-");
+                                    String[] words = revDate.split("-");
 
-                                String result = null;
-                                if(words[1].equals("01")){
-                                    result="janvier";
+                                    String result = null;
+                                    if (words[1].equals("01")) {
+                                        result = "janvier";
 
-                                }else if(words[1].equals("02")){
-                                    result="février";
-                                }else if(words[1].equals("03")){
-                                    result="mars";
-                                }else if(words[1].equals("04")){
-                                    result="avril";
-                                }else if(words[1].equals("05")){
-                                    result="mai";
-                                }else if(words[1].equals("06")){
-                                    result="juin";
-                                }else if(words[1].equals("07")){
-                                    result="juillet";
-                                }else if(words[1].equals("08")){
-                                    result="août";
-                                }else if(words[1].equals("09")){
-                                    result="septembre";
-                                }else if(words[1].equals("10")){
-                                    result="octobre";
-                                }else if(words[1].equals("11")){
-                                    result="novembre";
-                                }else if(words[1].equals("12")){
-                                    result="décembre";
+                                    } else if (words[1].equals("02")) {
+                                        result = "février";
+                                    } else if (words[1].equals("03")) {
+                                        result = "mars";
+                                    } else if (words[1].equals("04")) {
+                                        result = "avril";
+                                    } else if (words[1].equals("05")) {
+                                        result = "mai";
+                                    } else if (words[1].equals("06")) {
+                                        result = "juin";
+                                    } else if (words[1].equals("07")) {
+                                        result = "juillet";
+                                    } else if (words[1].equals("08")) {
+                                        result = "août";
+                                    } else if (words[1].equals("09")) {
+                                        result = "septembre";
+                                    } else if (words[1].equals("10")) {
+                                        result = "octobre";
+                                    } else if (words[1].equals("11")) {
+                                        result = "novembre";
+                                    } else if (words[1].equals("12")) {
+                                        result = "décembre";
+                                    }
+
+                                    String newDate = words[2] + " " +
+                                            result + " " +
+                                            words[0];
+                                    reviewsDate.add(newDate);
+
+                                    float rate = (float) object1.getDouble("stars");
+                                    String comment = object1.getString("comment");
+                                    String reviewimg = object1.getString("image");
+                                    String revfirstName = object1.getJSONObject("creator").getString("first_name");
+                                    String revlastName = object1.getJSONObject("creator").getString("last_name");
+
+                                    reviewsImages.add(reviewimg);
+                                    reviewsDesc.add(comment);
+                                    reviewsName.add(revfirstName + " " + revlastName);
+                                    reviewsRates.add(String.valueOf(rate));
                                 }
 
-                               String newDate = words[2] + " " +
-                                        result + " " +
-                                        words[0];
-                                reviewsDate.add(newDate);
-
-                                float rate = (float)object1.getDouble("stars");
-                                String comment = object1.getString("comment");
-                                String reviewimg = object1.getString("image");
-                                String revfirstName = object1.getJSONObject("creator").getString("first_name");
-                                String revlastName = object1.getJSONObject("creator").getString("last_name");
-
-
-                                reviewsImages.add(reviewimg);
-                                reviewsDesc.add(comment);
-                                reviewsName.add(revfirstName+" "+revlastName);
-                                reviewsRates.add(String.valueOf(rate));}
-
-
                             }
-
                             double[] latLng = {lat,longitude};
 
+                            JSONArray jsonArray1 = jsonObject.getJSONArray("opening_hours");
+                            if (jsonArray1.length() == 0){
+                                for(int l = 0; l<8;l++){
+                                    hour.add("Aucun");
+                                }
+                            }else {
+                                for(int i =0 ; i < jsonArray1.length();i++){
+
+                                    if(jsonArray1.length() != 0){
+                                        JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
+                                        String open = jsonObject1.getString("opening_hour");
+                                        String close = jsonObject1.getString("closing_hour");
+                                        if(open.isEmpty() && close.isEmpty()){
+                                            hour.add("Fermé");
+                                        }else{
+                                            String[] word = open.split(":");
+                                            String[] word1 = close.split(":");
+                                            String nnw = word[0]+":"+word[1];
+                                            String nw1 = word1[0]+":"+word1[1];
+                                            String resultFinal = nnw+" à "+nw1;
+
+                                            hour.add(resultFinal);
+                                        }
+                                    }
+                                }
+                            }
+
+                            String name = jsonObject.getString("name");
+                            String distance = jsonObject.getString("distance");
+                            int reviewCount = jsonObject.getInt("review_count");
+                            float revAverage = (float)jsonObject.getDouble("review_average");
+                            String imgrev = jsonObject.getString("image");
+                            String webSite = jsonObject.getString("website");
+                            String phone = jsonObject.getString("phone_number");
+                            String typeRest = jsonObject.getString("type");
+
+                            Restaurant restaurant = new Restaurant(name,webSite,phone,typeRest,reviewCount,revAverage,
+                                    imgrev,distance);
 
                             Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
                             intent.putExtra("location", latLng);
+                            intent.putExtra("resto",restaurant);
+                            intent.putExtra("eval",evluation);
+                            intent.putStringArrayListExtra("reviewsHeures",hour);
                             intent.putStringArrayListExtra("reviewsCards",reviewsDate);
                             intent.putStringArrayListExtra("reviewsStars",reviewsRates);
                             intent.putStringArrayListExtra("reviewsNames",reviewsName);
