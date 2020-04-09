@@ -2,6 +2,8 @@ package ca.ulaval.ima.mp.ui.fragmentpackage;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,12 +48,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import ca.ulaval.ima.mp.R;
 import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
 import ca.ulaval.ima.mp.utils.MapStateManager;
+import okhttp3.internal.http2.Http2Reader;
+import okhttp3.internal.ws.RealWebSocket;
 
 
 public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
@@ -90,6 +99,76 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
         LatLng restauLatLng = mListener.getRestoLocation();
 
         moveCamera(restauLatLng);
+        GeocoderHandler geocoderHandler = new GeocoderHandler();
+
+        getAddressFromLocation(restauLatLng.latitude,restauLatLng.longitude,getContext(), geocoderHandler);
+
+
+    }
+
+
+
+    public static void getAddressFromLocation(final double latitude, final double longitude, final Context context, final GeocoderHandler handler) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                String result = null;
+                try {
+                    List<android.location.Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                    if (addressList != null && addressList.size() > 0) {
+                        Address address = addressList.get(0);
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                            sb.append(address.getAddressLine(i)); //.append("\n");
+                        }
+                        sb.append(address.getAddressLine(0));
+                        String[] words = sb.toString().split(",");
+
+                        result = words[0] + "," +
+                                words[1] + "," +
+                                words[2];
+                    }
+                } catch (IOException e) {
+                    Log.e("Location Address Loader", "Unable connect to Geocoder", e);
+                } finally {
+                    Message message = Message.obtain();
+                    message.setTarget((Handler) handler);
+                    if (result != null) {
+                        message.what = 1;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("address", result);
+                        message.setData(bundle);
+                    } else {
+                        message.what = 1;
+                        Bundle bundle = new Bundle();
+                        result = " Unable to get address for this location.";
+                        bundle.putString("address", result);
+                        message.setData(bundle);
+                    }
+                    message.sendToTarget();
+                }
+            }
+        };
+        thread.start();
+    }
+
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            Log.e("location Address=", locationAddress);
+            mListener.setAdress(locationAddress);
+
+        }
     }
 
 
@@ -169,6 +248,7 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
      */
     public interface DescriptionMapFragmentListener {
         // TODO: Update argument type and name
-        public LatLng getRestoLocation ();
+        LatLng getRestoLocation ();
+        void setAdress(String adress);
     }
 }

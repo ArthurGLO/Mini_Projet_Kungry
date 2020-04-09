@@ -24,6 +24,7 @@ public class RestaurantDescription extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mListener.showReviews();
 
     }
 
@@ -73,5 +74,6 @@ public class RestaurantDescription extends Fragment {
     public interface RestoFragmentListener {
         // TODO: Update argument type and name
         void showDetails();
+        void showReviews();
     }
 }
