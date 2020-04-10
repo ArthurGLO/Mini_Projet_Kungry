@@ -15,6 +15,7 @@ public class Restaurant implements Parcelable {
     private String location;
     private String webSite ;
     private String phone;
+    private int id;
 
     public Restaurant( String restaurantName, String webSite, String phone, String type,
                        int review_count, float review_average, String image, String distance){
@@ -31,7 +32,7 @@ public class Restaurant implements Parcelable {
 
 
     public Restaurant( String restaurantName, String type,
-                       int review_count, float review_average, String image, String distance){
+                       int review_count, float review_average, String image, String distance,int id){
 
         this.restaurantName = restaurantName;
         this.type = type;
@@ -39,10 +40,14 @@ public class Restaurant implements Parcelable {
         this.review_average = review_average;
         this.image = image;
         this.distance = distance;
+        this.id = id;
     }
 
     public Restaurant(){}
 
+    public int getId() {
+        return id;
+    }
     public String getWebSite() {
         return webSite;
     }
@@ -128,6 +133,7 @@ public class Restaurant implements Parcelable {
         cookName = in.readString();
         type = in.readString();
         review_count = in.readInt();
+        id = in.readInt();
         review_average = in.readFloat();
         image = in.readString();
         distance = in.readString();
@@ -147,6 +153,7 @@ public class Restaurant implements Parcelable {
         dest.writeString(cookName);
         dest.writeString(type);
         dest.writeInt(review_count);
+        dest.writeInt(id);
         dest.writeFloat(review_average);
         dest.writeString(image);
         dest.writeString(distance);

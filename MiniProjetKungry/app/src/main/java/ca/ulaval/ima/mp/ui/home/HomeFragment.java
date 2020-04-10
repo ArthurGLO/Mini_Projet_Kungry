@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private void  showPlaces(double latitude, double longitude){
+    private void  showPlaces(final double latitude, final double longitude){
 
         name1 = getView().findViewById(R.id.restoname1);
         descript = getView().findViewById(R.id.descriptiontype1);
@@ -191,11 +191,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                 final int countReview = objecti.getInt("review_count");
                                 final String typeRestaut = objecti.getString("type");
                                 final float rate = (float)objecti.getDouble("review_average");
+                                final int restoId = objecti.getInt("id");
 
                                 map.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat,longitude))
                                         .title(name));
-                                Restaurant restaurant = new Restaurant(name,typeRestaut,countReview,rate,image1,dist);
+                                Restaurant restaurant = new Restaurant(name,typeRestaut,countReview,rate,image1,dist,restoId);
                                 restaurants.add(restaurant);
 
 
@@ -253,6 +254,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                             Picasso.with(getContext()).load(restaurants.get(i).getImage()).resize(140,115).into(imageView);
                                             ratings.setRating(restaurants.get(i).getReview_average());
                                             reviews1.setText("("+restaurants.get(i).getReview_count()+")");
+
+
+                                            final int finalI = i;
+                                            includedLayout.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    mListener.goToDetails(restaurants.get(finalI).getId(),latitude,longitude);
+                                                }
+                                            });
+
                                         }
                                     }
                                     return false;
@@ -422,6 +433,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         // TODO: Update argument type and name
         void showRestaurantPlace();
 
+        void goToDetails(int id,double lat,double longitude);
     }
 
 }

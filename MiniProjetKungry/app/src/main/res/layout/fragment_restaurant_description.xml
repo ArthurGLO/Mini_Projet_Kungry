@@ -515,27 +515,32 @@
                 android:layout_height="211dp"
                 android:layout_marginTop="5dp">
 
-                <ImageView
-                    android:id="@+id/vue"
-                    android:layout_width="49dp"
-                    android:layout_height="31dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginTop="19dp"
-                    android:src="@mipmap/ic_eye"/>
+                <RelativeLayout
+                    android:id="@+id/toreviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/vue"
+                        android:layout_width="49dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="19dp"
+                        android:src="@mipmap/ic_eye"/>
 
-                <TextView
-                    android:id="@+id/txtvue"
-                    android:layout_width="219dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_toEndOf="@+id/vue"
-                    android:layout_toRightOf="@+id/vue"
-                    android:text="Voir plus d'évaluation"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/txtvue"
+                        android:layout_width="219dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_toEndOf="@+id/vue"
+                        android:layout_toRightOf="@+id/vue"
+                        android:text="Voir plus d'évaluation"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
 
             </RelativeLayout>
 

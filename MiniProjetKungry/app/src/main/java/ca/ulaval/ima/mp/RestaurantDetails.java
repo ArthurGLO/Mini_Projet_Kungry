@@ -15,8 +15,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -57,8 +67,58 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
     }
 
     @Override
-    public void showDetails() {
+    public void goToReviews() {
+        RelativeLayout relativeLayout = findViewById(R.id.toreviews);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                if (intent != null){
+                    String restauId = intent.getStringExtra("restoId");
 
+                    if (restauId != null){
+                        gotToReviewsPage(Integer.parseInt(restauId));
+                    }
+                }
+            }
+        });
+    }
+
+    private void gotToReviewsPage(int id){
+
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "https://kungry.ca/api/v1/restaurant/"+id+"/reviews/";
+
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            final JSONArray jsonArray = response.getJSONObject("content").getJSONArray("results");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject c = jsonArray.getJSONObject(i);
+
+                                Intent intent = new Intent(RestaurantDetails.this, ReviewsActivity.class);
+                                //intent.putExtra(SiteWebInterne.EXTRA_SITE_WEB_EXTERNE, UrlToLoad);
+                                startActivity(intent);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     @Override
