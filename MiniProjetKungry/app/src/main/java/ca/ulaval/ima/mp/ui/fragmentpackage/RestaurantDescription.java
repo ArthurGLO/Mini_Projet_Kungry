@@ -25,6 +25,7 @@ public class RestaurantDescription extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mListener.showReviews();
+        mListener.goToReviews();
 
     }
 
@@ -73,7 +74,7 @@ public class RestaurantDescription extends Fragment {
      */
     public interface RestoFragmentListener {
         // TODO: Update argument type and name
-        void showDetails();
+        void goToReviews();
         void showReviews();
     }
 }

@@ -199,17 +199,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         queue.add(getRequest);
     }
 
-    private void getRestaurantDescription(int id, final double lat, final double longitude){
+    private void getRestaurantDescription(final int id, final double lat, final double longitude){
         final ArrayList<String> reviewsDate = new ArrayList<>();
         final ArrayList<String> reviewsRates = new ArrayList<>();
         final ArrayList<String> reviewsName = new ArrayList<>();
         final ArrayList<String> reviewsDesc = new ArrayList<>();
         final ArrayList<String> reviewsImages = new ArrayList<>();
         final ArrayList<String> hour = new ArrayList<>();
-
-
-
-
 
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/restaurant/"+id+"/?latitude="+lat+"&longitude="+longitude;
@@ -221,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                         // display response
                         try {
                             final JSONObject jsonObject = response.getJSONObject("content");
-                            final JSONArray jsonArray = jsonObject.getJSONArray("cuisine");
                             JSONObject objLocation = jsonObject.getJSONObject("location");
                             double lat = objLocation.getDouble("latitude");
                             double longitude = objLocation.getDouble("longitude");
@@ -327,6 +322,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             intent.putExtra("location", latLng);
                             intent.putExtra("resto",restaurant);
                             intent.putExtra("eval",evluation);
+                            intent.putExtra("restoId",String.valueOf(id));
                             intent.putStringArrayListExtra("reviewsHeures",hour);
                             intent.putStringArrayListExtra("reviewsCards",reviewsDate);
                             intent.putStringArrayListExtra("reviewsStars",reviewsRates);
@@ -358,6 +354,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     @Override
     public void showRestaurantPlace() {
 
+    }
+
+    @Override
+    public void goToDetails(int id,double lat,double longitude) {
+        getRestaurantDescription(id,lat,longitude);
     }
 
 

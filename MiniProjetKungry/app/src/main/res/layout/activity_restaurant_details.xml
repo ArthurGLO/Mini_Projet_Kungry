@@ -6,18 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".RestaurantDetails">
 
+
     <ImageView
         android:id="@+id/img1"
         android:layout_width="48dp"
         android:layout_height="45dp"
-        android:layout_margin="25dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
         android:foregroundGravity="top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.068"
         app:srcCompat="@drawable/ic_backdark_foreground" />
 
     <fragment
@@ -26,10 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="278dp" />
-
+        tools:layout_editor_absoluteY="68dp" />
 
     <RelativeLayout
         android:layout_width="411dp"
