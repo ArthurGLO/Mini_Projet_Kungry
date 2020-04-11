@@ -1,20 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ReviewsActivity">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            tools:context=".RestaurantDetails" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="399dp"
-            android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-</RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/eval12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relMap"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="130dp"
+                                    android:text="Évaluations"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txteval12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relMap"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="135dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:layout_toEndOf="@+id/eval12"
+                                    android:layout_toRightOf="@+id/eval12"
+                                    android:text="(44)"
+                                    android:textSize="15sp" />
+
+                                <RelativeLayout
+                                    android:id="@+id/cardlayout"
+                                    android:layout_width="428dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@id/eval12"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="35dp"
+                                    android:layout_marginEnd="25dp"
+                                    android:layout_marginRight="25dp">
+
+                                        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fitsSystemWindows="true"
+                                            tools:context=".ReviewsActivity" />
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/recycler_view1"
+                                            android:layout_width="431dp"
+                                            android:layout_height="match_parent" />
+
+                                </RelativeLayout>
+                        </RelativeLayout>
+
+                </LinearLayout>
+        </ScrollView>
+</LinearLayout>

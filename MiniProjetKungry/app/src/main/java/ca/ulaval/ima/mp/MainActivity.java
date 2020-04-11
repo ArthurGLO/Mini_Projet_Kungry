@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -28,14 +29,9 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +69,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         if(googleServicesAvailable()){
             Toast.makeText(this,"Perfecto !!",Toast.LENGTH_LONG).show();
         }
+
+        View view = findViewById(R.id.card11);
+        view.bringToFront();
+
+        //These methods allow for setting a custom ActionBar and setting the view using a custom layout
+        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //getSupportActionBar().setCustomView(R.layout.customactionbar);
+
     }
 
     public boolean googleServicesAvailable(){
@@ -128,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         final ArrayList<String> type = new ArrayList<>();
         final ArrayList<String> reviewsCount = new ArrayList<>();
         final ArrayList<String> restoKm = new ArrayList<>();
-        final ArrayList<String> reviewsStars = new ArrayList<>();
-        myListView = findViewById(R.id.resto_list);
+            final ArrayList<String> reviewsStars = new ArrayList<>();
+            myListView = findViewById(R.id.resto_list);
 
 
         final RequestQueue queue = Volley.newRequestQueue(this);

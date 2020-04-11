@@ -85,6 +85,11 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
     }
 
     private void gotToReviewsPage(int id){
+        final ArrayList<String> reviewsDate = new ArrayList<>();
+        final ArrayList<String> reviewsRates = new ArrayList<>();
+        final ArrayList<String> reviewsName = new ArrayList<>();
+        final ArrayList<String> reviewsDesc = new ArrayList<>();
+        final ArrayList<String> reviewsImages = new ArrayList<>();
 
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/restaurant/"+id+"/reviews/";
@@ -97,12 +102,64 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
                         try {
                             final JSONArray jsonArray = response.getJSONObject("content").getJSONArray("results");
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject c = jsonArray.getJSONObject(i);
+                                if(jsonArray.length() != 0 && !(jsonArray.isNull(i))) {
 
-                                Intent intent = new Intent(RestaurantDetails.this, ReviewsActivity.class);
-                                //intent.putExtra(SiteWebInterne.EXTRA_SITE_WEB_EXTERNE, UrlToLoad);
-                                startActivity(intent);
+                                    JSONObject object1 = jsonArray.getJSONObject(i);
+                                    String revDate = object1.getString("date");
+
+                                    String[] words = revDate.split("-");
+
+                                    String result = null;
+                                    if (words[1].equals("01")) {
+                                        result = "janvier";
+
+                                    } else if (words[1].equals("02")) {
+                                        result = "février";
+                                    } else if (words[1].equals("03")) {
+                                        result = "mars";
+                                    } else if (words[1].equals("04")) {
+                                        result = "avril";
+                                    } else if (words[1].equals("05")) {
+                                        result = "mai";
+                                    } else if (words[1].equals("06")) {
+                                        result = "juin";
+                                    } else if (words[1].equals("07")) {
+                                        result = "juillet";
+                                    } else if (words[1].equals("08")) {
+                                        result = "août";
+                                    } else if (words[1].equals("09")) {
+                                        result = "septembre";
+                                    } else if (words[1].equals("10")) {
+                                        result = "octobre";
+                                    } else if (words[1].equals("11")) {
+                                        result = "novembre";
+                                    } else if (words[1].equals("12")) {
+                                        result = "décembre";
+                                    }
+
+                                    String newDate = words[2] + " " +
+                                            result + " " +
+                                            words[0];
+                                    reviewsDate.add(newDate);
+                                    float rate = (float) object1.getDouble("stars");
+                                    String comment = object1.getString("comment");
+                                    String reviewimg = object1.getString("image");
+                                    String revfirstName = object1.getJSONObject("creator").getString("first_name");
+                                    String revlastName = object1.getJSONObject("creator").getString("last_name");
+
+                                    reviewsImages.add(reviewimg);
+                                    reviewsDesc.add(comment);
+                                    reviewsName.add(revfirstName + " " + revlastName);
+                                    reviewsRates.add(String.valueOf(rate));
+                                }
                             }
+                            Intent intent = new Intent(RestaurantDetails.this, ReviewsActivity.class);
+                            intent.putStringArrayListExtra("reviewsCards",reviewsDate);
+                            intent.putStringArrayListExtra("reviewsStars",reviewsRates);
+                            intent.putStringArrayListExtra("reviewsNames",reviewsName);
+                            intent.putStringArrayListExtra("reviewsComs",reviewsDesc);
+                            intent.putStringArrayListExtra("reviewsImgs",reviewsImages);
+                            startActivity(intent);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
