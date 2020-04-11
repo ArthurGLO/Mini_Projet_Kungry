@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
         View view = findViewById(R.id.card11);
         view.bringToFront();
-
-        //These methods allow for setting a custom ActionBar and setting the view using a custom layout
         //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         //getSupportActionBar().setCustomView(R.layout.customactionbar);
 
