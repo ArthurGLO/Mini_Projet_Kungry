@@ -15,6 +15,14 @@
 
         <include
             android:id="@+id/card"
+            layout="@layout/customactionbar"
+            android:layout_width="match_parent"
+            android:layout_height="182dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/card"
             layout="@layout/customcardview"
             android:layout_centerHorizontal="true"
             android:layout_width="fill_parent"
