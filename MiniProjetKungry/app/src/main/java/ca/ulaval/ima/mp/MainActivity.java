@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
         View view = findViewById(R.id.card11);
         view.bringToFront();
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().hide();
         //getSupportActionBar().setCustomView(R.layout.customactionbar);
 
     }

@@ -521,19 +521,19 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/vue"
-                        android:layout_width="49dp"
+                        android:layout_width="40dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="70dp"
                         android:layout_marginLeft="70dp"
-                        android:layout_marginTop="19dp"
-                        android:src="@mipmap/ic_eye"/>
+                        android:layout_marginTop="21dp"
+                        app:srcCompat="@drawable/ic_eye_foreground"/>
 
                     <TextView
                         android:id="@+id/txtvue"
                         android:layout_width="219dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="9dp"
-                        android:layout_marginLeft="9dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@+id/vue"
                         android:layout_toRightOf="@+id/vue"
