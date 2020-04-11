@@ -23,9 +23,20 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="165dp"
         android:layout_marginLeft="165dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="19dp"
         android:gravity="center_horizontal"
         app:srcCompat="@drawable/ic_logo_kungry" />
+
+    <ImageView
+        android:id="@+id/iconBack"
+        android:layout_width="68dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="39dp"
+        android:gravity="center_horizontal"
+        app:srcCompat="@drawable/ic_iconeback_foreground" />
 
 
 </RelativeLayout>
