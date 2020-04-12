@@ -112,11 +112,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="42dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:layout_toEndOf="@+id/reviewsCount"
                 android:layout_toRightOf="@+id/reviewsCount"
                 android:gravity="center_vertical"
-                app:srcCompat="@drawable/ic_location_on_black_24dp" />
+                app:srcCompat="@drawable/ic_pin_foreground" />
 
         </RelativeLayout>
 

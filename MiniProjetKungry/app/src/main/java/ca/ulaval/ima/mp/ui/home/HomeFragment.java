@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 12f;//15
+    private static final float DEFAULT_ZOOM = 15f;//15
     private TextView name1;
     private TextView descript;
     private TextView kilometer;
@@ -226,14 +226,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                                 Marker marker =  map.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat,longitude))
-                                        .title(name));
+                                        .title(name)
+                                        .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
                                 markers.add(marker);
 
 
                                 map.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat,longitude))
-                                        .title(name))
-                                        .setIcon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground));
+                                        .title(name).icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
 
                                 Restaurant restaurant = new Restaurant(name,typeRestaut,countReview,rate,image1,dist,restoId);
                                 restaurants.add(restaurant);
@@ -283,8 +283,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                     markers.get(m).setVisible(false);
                                     map.addMarker(new MarkerOptions()
                                             .position(latLng)
-                                            .title(markers.get(m).getTitle()))
-                                            .setIcon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_marker_foreground));
+                                            .title(markers.get(m).getTitle())
+                                            .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_marker_foreground)));
 
                                 }
                             }
@@ -306,6 +306,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                             Picasso.with(getContext()).load(restaurants.get(i).getImage()).resize(140,115).into(imageView);
                                             ratings.setRating(restaurants.get(i).getReview_average());
                                             reviews1.setText("("+restaurants.get(i).getReview_count()+")");
+
+                                            marker.setIcon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_marker_foreground));
 
 
                                             final int finalI = i;
@@ -361,8 +363,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             double latitude = currentLocation.getLatitude();
                             double longitude = currentLocation.getLongitude();
 
-                            goToLocationZoom(latitude, longitude);
+                            //goToLocationZoom(latitude, longitude);
                             //moveCamera(new LatLng(latitude,longitude));
+
+                            CameraPosition googlePlex = CameraPosition.builder()
+                                    .target(new LatLng(latitude,longitude))
+                                    .zoom(13)
+                                    .bearing(0)
+                                    .tilt(45)
+                                    .build();
+
+                            map.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
+
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(latitude,longitude))
+                                    .title("Vous êtes ici").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_location_on_black_24dp)));
+
 
                         }else{
                             Log.e("DEBUG", "onComplete: current location is null");
@@ -442,7 +458,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(v,v1))
-                .title("Vous êtes ici"));
+                .title("Vous êtes ici").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
 
     }
 
