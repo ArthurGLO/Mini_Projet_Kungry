@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -30,6 +31,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         view.bringToFront();
         getSupportActionBar().hide();
         //getSupportActionBar().setCustomView(R.layout.customactionbar);
+
 
     }
 
@@ -332,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             intent.putStringArrayListExtra("reviewsNames",reviewsName);
                             intent.putStringArrayListExtra("reviewsComs",reviewsDesc);
                             intent.putStringArrayListExtra("reviewsImgs",reviewsImages);
-                            startActivity(intent);
+                            startActivityForResult(intent,12345);
 
 
 
@@ -355,14 +358,25 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
 
     @Override
-    public void showRestaurantPlace() {
+    public LatLng showRestaurantPlace() {
+        LatLng lng = new LatLng(1,1);
+        Intent intent = getIntent();
+        if (intent != null){
+            double[] restoCoord = intent.getDoubleArrayExtra("resultMap");
 
+            if (restoCoord != null){
+                lng = new LatLng(restoCoord[0],restoCoord[1]);
+            }
+        }
+        return lng;
     }
 
     @Override
     public void goToDetails(int id,double lat,double longitude) {
         getRestaurantDescription(id,lat,longitude);
     }
+
+
 
 
 }

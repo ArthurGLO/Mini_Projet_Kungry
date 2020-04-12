@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import ca.ulaval.ima.mp.R;
 
@@ -40,6 +41,7 @@ public class RestaurantDescription extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_restaurant_description, container, false);
+
 
         return root;
     }

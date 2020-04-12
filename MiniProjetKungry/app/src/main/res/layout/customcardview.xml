@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="386dp"
-        android:layout_height="104dp"
+        android:layout_height="112dp"
         android:layout_margin="10dp"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
@@ -55,7 +55,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="99dp"
             android:layout_below="@+id/descriptiontype1"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
@@ -113,15 +113,15 @@
             <ImageView
                 android:id="@+id/marker1"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="33dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="62dp"
-                android:layout_marginLeft="61dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
                 android:layout_toEndOf="@+id/reviewsCount1"
                 android:layout_toRightOf="@+id/reviewsCount1"
                 android:gravity="center_vertical"
-                app:srcCompat="@drawable/ic_location_on_black_24dp" />
+                app:srcCompat="@drawable/ic_pin_foreground" />
 
         </RelativeLayout>
 

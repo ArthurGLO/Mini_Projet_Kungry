@@ -2,9 +2,13 @@ package ca.ulaval.ima.mp.ui.home;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -36,6 +42,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -58,6 +65,8 @@ import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.utils.CustomInfoWindowAdapter;
 import ca.ulaval.ima.mp.utils.MapStateManager;
 
+import static androidx.core.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
+
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -68,7 +77,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 15f;//15
     private TextView name1;
     private TextView descript;
     private TextView kilometer;
@@ -86,6 +95,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         View includedLayout1 = getView().findViewById(R.id.cardshow);
         includedLayout1.setVisibility(View.VISIBLE);
+
+
     }
 
 
@@ -96,6 +107,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         getLocationPermission();
 
+
         return v;
     }
 
@@ -105,7 +117,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
     }
+
 
     @Override
     public void onMapReady(GoogleMap mMap) {
@@ -113,7 +127,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (mLocationPermissionsGranted) {
-            getDeviceLocation();
             showRestaurantPlaces();
 
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -124,8 +137,24 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             map.setMyLocationEnabled(true);
             map.getUiSettings().setMyLocationButtonEnabled(false);
 
+
         }
 
+        /**final LatLng latLng = mListener.showRestaurantPlace();
+       setPlace(latLng);*/
+    }
+
+    private void setPlace(LatLng place){
+
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     private void showRestaurantPlaces(){
@@ -157,6 +186,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
 
     private void  showPlaces(final double latitude, final double longitude){
+        getDeviceLocation();
 
         name1 = getView().findViewById(R.id.restoname1);
         descript = getView().findViewById(R.id.descriptiontype1);
@@ -165,6 +195,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         imageView = getView().findViewById(R.id.imageView1);
         reviews1 = getView().findViewById(R.id.reviewsCount1);
         final ArrayList<Restaurant> restaurants = new ArrayList<>();
+        final ArrayList<Marker> markers = new ArrayList<>();
 
         final RequestQueue queue = Volley.newRequestQueue(getContext());
         final String url = "https://kungry.ca/api/v1/restaurant/search/?latitude="+latitude+"&longitude="+longitude+"&radius=6";
@@ -193,9 +224,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                 final float rate = (float)objecti.getDouble("review_average");
                                 final int restoId = objecti.getInt("id");
 
+                                Marker marker =  map.addMarker(new MarkerOptions()
+                                        .position(new LatLng(lat,longitude))
+                                        .title(name)
+                                        .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
+                                markers.add(marker);
+
+
                                 map.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat,longitude))
-                                        .title(name));
+                                        .title(name).icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
+
                                 Restaurant restaurant = new Restaurant(name,typeRestaut,countReview,rate,image1,dist,restoId);
                                 restaurants.add(restaurant);
 
@@ -237,6 +276,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                             }
 
+                            final LatLng latLng = mListener.showRestaurantPlace();
+
+                            for (int m =0;m<markers.size();m++){
+                                if(markers.get(m).getPosition().latitude == latLng.latitude ){
+                                    markers.get(m).setVisible(false);
+                                    map.addMarker(new MarkerOptions()
+                                            .position(latLng)
+                                            .title(markers.get(m).getTitle())
+                                            .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_marker_foreground)));
+
+                                }
+                            }
+
                             map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                 @Override
                                 public boolean onMarkerClick(Marker marker) {
@@ -255,6 +307,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                             ratings.setRating(restaurants.get(i).getReview_average());
                                             reviews1.setText("("+restaurants.get(i).getReview_count()+")");
 
+                                            marker.setIcon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_marker_foreground));
+
 
                                             final int finalI = i;
                                             includedLayout.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +323,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                     return false;
                                 }
                             });
+
 
 
                         } catch (JSONException e) {
@@ -289,6 +344,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
+
     private void getDeviceLocation(){
         Log.e("DEBUG", "getDeviceLocation: getting the devices current location");
 
@@ -307,7 +363,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             double latitude = currentLocation.getLatitude();
                             double longitude = currentLocation.getLongitude();
 
-                            goToLocationZoom(latitude, longitude);
+                            //goToLocationZoom(latitude, longitude);
+                            //moveCamera(new LatLng(latitude,longitude));
+
+                            CameraPosition googlePlex = CameraPosition.builder()
+                                    .target(new LatLng(latitude,longitude))
+                                    .zoom(13)
+                                    .bearing(0)
+                                    .tilt(45)
+                                    .build();
+
+                            map.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
+
+                            map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(latitude,longitude))
+                                    .title("Vous êtes ici").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_location_on_black_24dp)));
+
 
                         }else{
                             Log.e("DEBUG", "onComplete: current location is null");
@@ -387,7 +458,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(v,v1))
-                .title("Vous êtes ici"));
+                .title("Vous êtes ici").icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
 
     }
 
@@ -402,6 +473,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onStop() {
         super.onStop();
+
     }
 
     @Override
@@ -426,12 +498,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
     }
 
 
     public interface MapFragmentListener {
         // TODO: Update argument type and name
-        void showRestaurantPlace();
+        LatLng showRestaurantPlace();
 
         void goToDetails(int id,double lat,double longitude);
     }

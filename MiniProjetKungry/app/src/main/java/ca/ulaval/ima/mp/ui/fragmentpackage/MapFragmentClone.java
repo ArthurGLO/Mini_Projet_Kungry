@@ -2,6 +2,9 @@ package ca.ulaval.ima.mp.ui.fragmentpackage;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -36,6 +39,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -96,12 +101,19 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
         map = mMap;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        LatLng restauLatLng = mListener.getRestoLocation();
+        final LatLng restauLatLng = mListener.getRestoLocation();
 
         moveCamera(restauLatLng);
         GeocoderHandler geocoderHandler = new GeocoderHandler();
 
         getAddressFromLocation(restauLatLng.latitude,restauLatLng.longitude,getContext(), geocoderHandler);
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mListener.goToMap(restauLatLng);
+            }
+        });
 
 
     }
@@ -174,13 +186,21 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
 
     private void moveCamera(LatLng latLng){
         map.addMarker(new MarkerOptions()
-                .position(latLng));
+                .position(latLng).icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_pin_foreground)));
 
         Log.e("DEBUG", "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, MapFragmentClone.DEFAULT_ZOOM));
     }
 
 
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 
 
     private void goToLocationZoom(double v, double v1) {
@@ -250,5 +270,6 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
         // TODO: Update argument type and name
         LatLng getRestoLocation ();
         void setAdress(String adress);
+        void goToMap(LatLng latLng);
     }
 }
