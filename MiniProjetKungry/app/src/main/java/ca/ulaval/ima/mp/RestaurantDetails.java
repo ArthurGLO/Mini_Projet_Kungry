@@ -1,6 +1,7 @@
 package ca.ulaval.ima.mp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -250,6 +251,18 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
         }
     }
+
+    @Override
+    public void goToMap(LatLng latLng) {
+        Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
+        double[] myDouble= {latLng.latitude,latLng.longitude};
+        intent.putExtra("resultMap",myDouble);
+        startActivityForResult(intent,12345);
+
+
+    }
+
+
 
     @Override
     public void onBackPressed() {

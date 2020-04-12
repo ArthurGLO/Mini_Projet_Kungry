@@ -96,12 +96,19 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
         map = mMap;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        LatLng restauLatLng = mListener.getRestoLocation();
+        final LatLng restauLatLng = mListener.getRestoLocation();
 
         moveCamera(restauLatLng);
         GeocoderHandler geocoderHandler = new GeocoderHandler();
 
         getAddressFromLocation(restauLatLng.latitude,restauLatLng.longitude,getContext(), geocoderHandler);
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mListener.goToMap(restauLatLng);
+            }
+        });
 
 
     }
@@ -250,5 +257,6 @@ public class MapFragmentClone extends Fragment implements OnMapReadyCallback {
         // TODO: Update argument type and name
         LatLng getRestoLocation ();
         void setAdress(String adress);
+        void goToMap(LatLng latLng);
     }
 }
