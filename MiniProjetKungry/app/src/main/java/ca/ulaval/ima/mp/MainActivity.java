@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,11 +24,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -35,20 +41,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.dashboard.DashboardFragment;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
+import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.CustomListview;
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener, DashboardFragment.RestaurantFragmentListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener, NotificationsFragment.CompteFragmentListner, DashboardFragment.RestaurantFragmentListener {
 
     GoogleMap map;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -377,6 +387,123 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     }
 
 
+    @Override
+    public void displaytoolbar() {
+        View view = findViewById(R.id.card11);
+        view.setVisibility(View.INVISIBLE);
+
+
+    }
+
+    @Override
+    public void displayUserAccount(final String userMail, final String userpassWord) {
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "https://kungry.ca/api/v1/account/login/";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.e("Response", response);
+                        try {
+                            JSONObject c = new JSONObject(response);
+                            JSONObject jsonObject = c.getJSONObject("content");
+                            String token = jsonObject.getString("access_token");
+                            String tokentype = jsonObject.getString("token_type");
+                            display(token,tokentype);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("client_id", "STO4WED2NTDDxjLs8ODios5M15HwsrRlydsMa1t0");
+                params.put("client_secret", "YOVWGpjSnHd5AYDxGBR2CIB09ZYM1OPJGnH3ijkKwrUMVvwLpr" +
+                        "UmLf6fxku06ClUKTAEl5AeZN36V9QYBYvTtrLMrtUtXVuXOGWle" +
+                        "QGYyApC2a469l36TdlXFqAG1tpK");
+                params.put("email", userMail);
+                params.put("password", userpassWord);
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+
+
+    }
+
+
+    private  void display(final String token, final String tokenType){
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "https://kungry.ca/api/v1/account/me/";
+
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            JSONObject jsonObject = response.getJSONObject("content");
+                            String lastName = jsonObject.getString("last_name");
+                            final RelativeLayout relativeLayout = findViewById(R.id.pageAccount);
+                            relativeLayout.setVisibility(View.INVISIBLE);
+                            final View view = findViewById(R.id.pageLogging);
+                            view.setVisibility(View.VISIBLE);
+                            View view1 = findViewById(R.id.cardd);
+                            view1.setVisibility(View.VISIBLE);
+
+                            TextView textView = findViewById(R.id.txtName);
+                            textView.setText(lastName);
+
+
+                            Button button = findViewById(R.id.loging);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    relativeLayout.setVisibility(View.VISIBLE);
+                                    view.setVisibility(View.INVISIBLE);
+
+
+                                }
+                            });
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<>();
+                params.put("Authorization",tokenType+" "+token);
+
+                return params;
+            }
+        };
+
+// add it to the RequestQueue
+        queue.add(getRequest);
+    }
 
 
 }

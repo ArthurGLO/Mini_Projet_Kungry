@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <include
+        android:layout_marginTop="80dp"
+        android:id="@+id/cardd"
+        layout="@layout/customactionbar3"
+        android:layout_width="421dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_below="@+id/cardd"
+        android:layout_width="386dp"
+        android:layout_height="645dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp">
+        <TextView
+            android:id="@+id/txtcmpte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon compte"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"/>
+        <TextView
+            android:id="@+id/txtcmpteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom"
+            android:layout_below="@id/txtcmpte"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"/>
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="name"
+            android:layout_below="@id/txtcmpteName"
+            android:textSize="24sp"
+            android:layout_marginTop="2dp"/>
+        <TextView
+            android:id="@+id/txtcmpteEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Couriel"
+            android:layout_below="@id/txtName"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"/>
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="couriel"
+            android:layout_below="@id/txtcmpteEmail"
+            android:textSize="24sp"
+            android:layout_marginTop="2dp"/>
+        <TextView
+            android:id="@+id/txtcmpteReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre d'évaluations attribuées"
+            android:layout_below="@id/txtEmail"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"/>
+        <TextView
+            android:id="@+id/txtReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="nombre"
+            android:layout_below="@id/txtcmpteReviews"
+            android:textSize="24sp"
+            android:layout_marginTop="2dp"/>
+
+        <Button
+            android:id="@+id/loging"
+            android:layout_width="374dp"
+            android:layout_height="63dp"
+            android:layout_below="@+id/txtReviews"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/mybtton1"
+            android:gravity="center_vertical"
+            android:text="DÉCONNEXION"
+            android:textColor="@color/whitecolor"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
