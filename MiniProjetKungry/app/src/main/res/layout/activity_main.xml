@@ -15,11 +15,10 @@
         android:visibility="visible" />
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="450dp"
-        android:layout_height="48dp"
+        android:layout_width="449dp"
+        android:layout_height="59dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
