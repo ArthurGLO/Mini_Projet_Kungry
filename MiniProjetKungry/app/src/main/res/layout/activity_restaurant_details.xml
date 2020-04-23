@@ -30,12 +30,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="68dp" />
+        tools:layout_editor_absoluteY="0dp" />
 
     <RelativeLayout
         android:layout_width="411dp"
         android:layout_height="136dp"
         android:background="#ffffff"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,7 +48,6 @@
             android:id="@+id/txtevaluation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="33dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:text="Pour laisser une évaluation, connectez vous."
@@ -55,6 +55,7 @@
             android:textSize="17sp" />
 
         <Button
+            android:id="@+id/letReviews"
             android:layout_width="374dp"
             android:layout_height="63dp"
             android:layout_below="@+id/txtevaluation"
@@ -72,5 +73,6 @@
             android:textSize="20sp" />
 
     </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

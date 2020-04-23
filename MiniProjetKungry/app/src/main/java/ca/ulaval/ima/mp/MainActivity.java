@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
@@ -53,12 +54,14 @@ import java.util.Map;
 
 import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.dashboard.DashboardFragment;
+import ca.ulaval.ima.mp.ui.fragmentpackage.RestaurantDescription;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
 import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.CustomListview;
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener, NotificationsFragment.CompteFragmentListner, DashboardFragment.RestaurantFragmentListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener,
+        NotificationsFragment.CompteFragmentListner, DashboardFragment.RestaurantFragmentListener {
 
     GoogleMap map;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         view.bringToFront();
         getSupportActionBar().hide();
         //getSupportActionBar().setCustomView(R.layout.customactionbar);
+
 
 
     }
@@ -446,6 +450,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     }
 
 
+
     private  void display(final String token, final String tokenType){
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/account/me/";
@@ -458,6 +463,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                         try {
                             JSONObject jsonObject = response.getJSONObject("content");
                             String lastName = jsonObject.getString("last_name");
+                            String firstName = jsonObject.getString("first_name");
+                            String owner = lastName+" "+firstName;
+                            String mail = jsonObject.getString("email");
+                            int reviewsTotal = jsonObject.getInt("total_review_count");
                             final RelativeLayout relativeLayout = findViewById(R.id.pageAccount);
                             relativeLayout.setVisibility(View.INVISIBLE);
                             final View view = findViewById(R.id.pageLogging);
@@ -466,8 +475,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             view1.setVisibility(View.VISIBLE);
 
                             TextView textView = findViewById(R.id.txtName);
-                            textView.setText(lastName);
-
+                            TextView textMail = findViewById(R.id.txtEmail);
+                            TextView textNumber = findViewById(R.id.txtReviews);
+                            textView.setText(owner);
+                            textMail.setText(mail);
+                            textNumber.setText(String.valueOf(reviewsTotal));
 
                             Button button = findViewById(R.id.loging);
                             button.setOnClickListener(new View.OnClickListener() {
@@ -506,4 +518,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     }
 
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==12345)
+        {
+            BottomNavigationView mBottomNavigationView = findViewById(R.id.nav_view);
+
+            mBottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
+
+
+        }
+    }
 }

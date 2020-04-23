@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import ca.ulaval.ima.mp.R;
@@ -28,6 +29,8 @@ public class RestaurantDescription extends Fragment {
         mListener.showReviews();
         mListener.goToReviews();
 
+
+
     }
 
     @Override
@@ -42,6 +45,13 @@ public class RestaurantDescription extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_restaurant_description, container, false);
 
+        Button button = root.findViewById(R.id.letReviews);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.connectToApplayReviews();
+            }
+        });
 
         return root;
     }
@@ -78,5 +88,7 @@ public class RestaurantDescription extends Fragment {
         // TODO: Update argument type and name
         void goToReviews();
         void showReviews();
+        void connectToApplayReviews();
+
     }
 }

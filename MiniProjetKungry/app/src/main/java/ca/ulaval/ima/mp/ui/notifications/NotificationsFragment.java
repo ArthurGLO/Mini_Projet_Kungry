@@ -32,7 +32,9 @@ public class NotificationsFragment extends Fragment {
 
         mListener.displaytoolbar();
 
+
     }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,5 +78,6 @@ public class NotificationsFragment extends Fragment {
         // TODO: Update argument type and name
         void displaytoolbar();
         void displayUserAccount(String userMail,String userPassWord);
+
     }
 }

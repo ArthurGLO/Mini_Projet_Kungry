@@ -3,6 +3,7 @@ package ca.ulaval.ima.mp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,9 +11,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,9 +40,11 @@ import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.fragmentpackage.MapFragmentClone;
 import ca.ulaval.ima.mp.ui.fragmentpackage.RestaurantDescription;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
+import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.RecyclerAdapter;
 
-public class RestaurantDetails extends AppCompatActivity implements RestaurantDescription.RestoFragmentListener, MapFragmentClone.DescriptionMapFragmentListener {
+public class RestaurantDetails extends AppCompatActivity implements RestaurantDescription.RestoFragmentListener,
+        MapFragmentClone.DescriptionMapFragmentListener, NotificationsFragment.CompteFragmentListner {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -64,6 +71,7 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
         RelativeLayout relativeLayout1 = findViewById(R.id.txtgeolocation);
         relativeLayout1.setBackgroundColor(ContextCompat.getColor(this, R.color.whitecolor));
+
 
     }
 
@@ -253,6 +261,15 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
     }
 
     @Override
+    public void connectToApplayReviews() {
+        Intent intent = new Intent();
+
+        setResult(12345,intent);
+        finish();//finishing activity
+    }
+
+
+    @Override
     public void goToMap(LatLng latLng) {
         Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
         double[] myDouble= {latLng.latitude,latLng.longitude};
@@ -290,5 +307,16 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
         TextView textView = findViewById(R.id.geolocation);
         textView.setText(adress);
     }
+
+    @Override
+    public void displaytoolbar() {
+
+    }
+
+    @Override
+    public void displayUserAccount(String userMail, String userPassWord) {
+
+    }
+
 
 }
