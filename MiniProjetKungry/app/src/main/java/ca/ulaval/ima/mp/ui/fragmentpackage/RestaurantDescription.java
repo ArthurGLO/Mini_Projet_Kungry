@@ -1,14 +1,17 @@
 package ca.ulaval.ima.mp.ui.fragmentpackage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import ca.ulaval.ima.mp.R;
@@ -28,6 +31,8 @@ public class RestaurantDescription extends Fragment {
         mListener.showReviews();
         mListener.goToReviews();
 
+
+
     }
 
     @Override
@@ -41,6 +46,24 @@ public class RestaurantDescription extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_restaurant_description, container, false);
+
+        Button button = root.findViewById(R.id.letReviews);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.connectToApplayReviews();
+
+            }
+        });
+        Button button1 = root.findViewById(R.id.letReviews1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.addYourReviews();
+
+            }
+        });
+
 
 
         return root;
@@ -64,6 +87,21 @@ public class RestaurantDescription extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -78,5 +116,8 @@ public class RestaurantDescription extends Fragment {
         // TODO: Update argument type and name
         void goToReviews();
         void showReviews();
+        void connectToApplayReviews();
+        void addYourReviews();
+
     }
 }

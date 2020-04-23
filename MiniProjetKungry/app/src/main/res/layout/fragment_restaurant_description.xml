@@ -3,9 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/desc1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.fragmentpackage.RestaurantDescription">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -543,7 +548,30 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/loging"
+            android:layout_width="match_parent"
+            android:layout_height="159dp"
+            android:layout_marginTop="550dp"
+            android:background="@drawable/boxshape">
+
+            <include
+                android:id="@+id/card66"
+                layout="@layout/applayingreviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:visibility="visible" />
+            <include
+                android:id="@+id/card665"
+                layout="@layout/commentaries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

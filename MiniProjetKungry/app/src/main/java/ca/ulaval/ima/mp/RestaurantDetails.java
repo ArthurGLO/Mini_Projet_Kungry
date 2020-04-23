@@ -1,8 +1,11 @@
 package ca.ulaval.ima.mp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,9 +13,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,9 +42,11 @@ import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.fragmentpackage.MapFragmentClone;
 import ca.ulaval.ima.mp.ui.fragmentpackage.RestaurantDescription;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
+import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.RecyclerAdapter;
 
-public class RestaurantDetails extends AppCompatActivity implements RestaurantDescription.RestoFragmentListener, MapFragmentClone.DescriptionMapFragmentListener {
+public class RestaurantDetails extends AppCompatActivity implements RestaurantDescription.RestoFragmentListener,
+        MapFragmentClone.DescriptionMapFragmentListener {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -46,6 +55,9 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        onRestart();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_details);
 
@@ -65,7 +77,10 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
         RelativeLayout relativeLayout1 = findViewById(R.id.txtgeolocation);
         relativeLayout1.setBackgroundColor(ContextCompat.getColor(this, R.color.whitecolor));
 
+
     }
+
+
 
     @Override
     public void goToReviews() {
@@ -253,6 +268,65 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
     }
 
     @Override
+    public void connectToApplayReviews() {
+       //moveTaskToBack(true);
+        Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
+        intent.putExtra("result","get");
+
+        startActivityForResult(intent,12345);
+
+    }
+
+    @Override
+    public void addYourReviews() {
+        Toast.makeText(this, "yesssss", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==12345)
+        {
+            View view = findViewById(R.id.card66);
+            View view1 = findViewById(R.id.card665);
+            view.setVisibility(View.INVISIBLE);
+            view1.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void goToMap(LatLng latLng) {
         Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
         double[] myDouble= {latLng.latitude,latLng.longitude};
@@ -290,5 +364,8 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
         TextView textView = findViewById(R.id.geolocation);
         textView.setText(adress);
     }
+
+
+
 
 }
