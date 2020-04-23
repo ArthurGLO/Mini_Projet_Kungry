@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         view.bringToFront();
         getSupportActionBar().hide();
         //getSupportActionBar().setCustomView(R.layout.customactionbar);
-
+        settings();
 
 
     }
@@ -451,6 +451,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
 
 
+
     private  void display(final String token, final String tokenType){
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/account/me/";
@@ -517,6 +518,134 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         queue.add(getRequest);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    private void settings(){
+        Intent intent = getIntent();
+        if (intent != null){
+            String s = intent.getStringExtra("result");
+            if (s != null){
+                BottomNavigationView mBottomNavigationView = findViewById(R.id.nav_view);
+                mBottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
+
+            }
+        }
+    }
+
+    @Override
+    public void setTheReviews(final String userMail, final String userpassWord) {
+
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "https://kungry.ca/api/v1/account/login/";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.e("Response", response);
+                        try {
+                            JSONObject c = new JSONObject(response);
+                            JSONObject jsonObject = c.getJSONObject("content");
+                            String token = jsonObject.getString("access_token");
+                            String tokentype = jsonObject.getString("token_type");
+                            display1(token,tokentype);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("client_id", "STO4WED2NTDDxjLs8ODios5M15HwsrRlydsMa1t0");
+                params.put("client_secret", "YOVWGpjSnHd5AYDxGBR2CIB09ZYM1OPJGnH3ijkKwrUMVvwLpr" +
+                        "UmLf6fxku06ClUKTAEl5AeZN36V9QYBYvTtrLMrtUtXVuXOGWle" +
+                        "QGYyApC2a469l36TdlXFqAG1tpK");
+                params.put("email", userMail);
+                params.put("password", userpassWord);
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+
+    }
+
+
+    private  void display1(final String token, final String tokenType){
+
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "https://kungry.ca/api/v1/account/me/";
+
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        final View view = findViewById(R.id.pageLogging);
+                        view.setVisibility(View.INVISIBLE);
+                        // display response
+                        Intent intent = getIntent();
+                        if (intent != null){
+                            String s = intent.getStringExtra("result");
+                            if (s != null){
+                                intent.putExtra("result1","get");
+                                setResult(12345,intent);
+                                finish();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<>();
+                params.put("Authorization",tokenType+" "+token);
+
+                return params;
+            }
+        };
+
+// add it to the RequestQueue
+        queue.add(getRequest);
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
 
     @Override
@@ -525,10 +654,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         if(requestCode==12345)
         {
             BottomNavigationView mBottomNavigationView = findViewById(R.id.nav_view);
-
             mBottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
 
 
         }
+
     }
 }

@@ -1,5 +1,7 @@
 package ca.ulaval.ima.mp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
@@ -44,7 +46,7 @@ import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.RecyclerAdapter;
 
 public class RestaurantDetails extends AppCompatActivity implements RestaurantDescription.RestoFragmentListener,
-        MapFragmentClone.DescriptionMapFragmentListener, NotificationsFragment.CompteFragmentListner {
+        MapFragmentClone.DescriptionMapFragmentListener {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -53,6 +55,9 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        onRestart();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_details);
 
@@ -74,6 +79,8 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
 
     }
+
+
 
     @Override
     public void goToReviews() {
@@ -262,12 +269,62 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
     @Override
     public void connectToApplayReviews() {
-        Intent intent = new Intent();
+       //moveTaskToBack(true);
+        Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
+        intent.putExtra("result","get");
 
-        setResult(12345,intent);
-        finish();//finishing activity
+        startActivityForResult(intent,12345);
+
     }
 
+    @Override
+    public void addYourReviews() {
+        Toast.makeText(this, "yesssss", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==12345)
+        {
+            View view = findViewById(R.id.card66);
+            View view1 = findViewById(R.id.card665);
+            view.setVisibility(View.INVISIBLE);
+            view1.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void goToMap(LatLng latLng) {
@@ -308,15 +365,7 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
         textView.setText(adress);
     }
 
-    @Override
-    public void displaytoolbar() {
 
-    }
-
-    @Override
-    public void displayUserAccount(String userMail, String userPassWord) {
-
-    }
 
 
 }

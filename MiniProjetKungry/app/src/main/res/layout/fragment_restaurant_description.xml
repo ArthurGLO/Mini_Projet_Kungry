@@ -565,6 +565,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:visibility="visible" />
+            <include
+                android:id="@+id/card665"
+                layout="@layout/commentaries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:visibility="invisible" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

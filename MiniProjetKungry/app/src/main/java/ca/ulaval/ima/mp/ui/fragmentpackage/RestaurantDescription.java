@@ -1,9 +1,11 @@
 package ca.ulaval.ima.mp.ui.fragmentpackage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -50,8 +52,19 @@ public class RestaurantDescription extends Fragment {
             @Override
             public void onClick(View v) {
                 mListener.connectToApplayReviews();
+
             }
         });
+        Button button1 = root.findViewById(R.id.letReviews1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.addYourReviews();
+
+            }
+        });
+
+
 
         return root;
     }
@@ -74,6 +87,21 @@ public class RestaurantDescription extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -89,6 +117,7 @@ public class RestaurantDescription extends Fragment {
         void goToReviews();
         void showReviews();
         void connectToApplayReviews();
+        void addYourReviews();
 
     }
 }

@@ -1,6 +1,7 @@
 package ca.ulaval.ima.mp.ui.notifications;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,26 @@ public class NotificationsFragment extends Fragment {
 
         mListener.displaytoolbar();
 
+        Button button = getActivity().findViewById(R.id.loging1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText userMail = getActivity().findViewById(R.id.edit_userMail);
+                EditText userPassWord = getActivity().findViewById(R.id.edit_userpassword);
+                Intent intent = getActivity().getIntent();
+                if (intent != null){
+                    String s = intent.getStringExtra("result");
+                    if (s != null){
+                        mListener.setTheReviews(userMail.getText().toString(),userPassWord.getText().toString());
+
+                    }
+                }
+
+                mListener.displayUserAccount(userMail.getText().toString(),userPassWord.getText().toString());
+
+
+            }
+        });
 
     }
 
@@ -46,10 +67,20 @@ public class NotificationsFragment extends Fragment {
             public void onClick(View v) {
                 EditText userMail = root.findViewById(R.id.edit_userMail);
                 EditText userPassWord = root.findViewById(R.id.edit_userpassword);
+                Intent intent = getActivity().getIntent();
+                if (intent != null){
+                    String s = intent.getStringExtra("result");
+                    if (s != null){
+                        mListener.setTheReviews(userMail.getText().toString(),userPassWord.getText().toString());
+
+                    }
+                }
+
                 mListener.displayUserAccount(userMail.getText().toString(),userPassWord.getText().toString());
+
+
             }
         });
-
 
         return root;
     }
@@ -68,6 +99,57 @@ public class NotificationsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        Button button = getActivity().findViewById(R.id.loging1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText userMail = getActivity().findViewById(R.id.edit_userMail);
+                EditText userPassWord = getActivity().findViewById(R.id.edit_userpassword);
+                Intent intent = getActivity().getIntent();
+                if (intent != null){
+                    String s = intent.getStringExtra("result");
+                    if (s != null){
+                        mListener.setTheReviews(userMail.getText().toString(),userPassWord.getText().toString());
+
+                    }
+                }
+
+                mListener.displayUserAccount(userMail.getText().toString(),userPassWord.getText().toString());
+
+
+            }
+        });
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        Button button = getActivity().findViewById(R.id.loging1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText userMail = getActivity().findViewById(R.id.edit_userMail);
+                EditText userPassWord = getActivity().findViewById(R.id.edit_userpassword);
+                Intent intent = getActivity().getIntent();
+                if (intent != null){
+                    String s = intent.getStringExtra("result");
+                    if (s != null){
+                        mListener.setTheReviews(userMail.getText().toString(),userPassWord.getText().toString());
+
+                    }
+                }
+
+                mListener.displayUserAccount(userMail.getText().toString(),userPassWord.getText().toString());
+
+
+             }
+        });
+        super.onPause();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -78,6 +160,6 @@ public class NotificationsFragment extends Fragment {
         // TODO: Update argument type and name
         void displaytoolbar();
         void displayUserAccount(String userMail,String userPassWord);
-
+        void setTheReviews(String userMail,String userPassWord);
     }
 }
