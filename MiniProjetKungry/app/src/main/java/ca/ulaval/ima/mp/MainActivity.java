@@ -604,8 +604,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             String s = intent.getStringExtra("result");
                             if (s != null){
                                 intent.putExtra("result1","get");
+                                intent.putExtra("tokenForReview",token);
+                                intent.putExtra("tokenForReviewType",tokenType);
                                 setResult(12345,intent);
                                 finish();
+
                             }
                         }
                     }
@@ -617,6 +620,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                     }
                 }
         ){
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String>  params = new HashMap<>();

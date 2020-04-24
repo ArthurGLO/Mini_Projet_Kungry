@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:id="@+id/connexion1"
     android:layout_height="match_parent">
-    <include
-        android:id="@+id/pageLogging"
-        layout="@layout/page_logged"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
 
     <RelativeLayout
         android:id="@+id/pageAccount"
@@ -126,7 +120,7 @@
                     android:layout_marginStart="15dp" />
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/loging"
+                android:id="@+id/loging5"
                 android:layout_below="@+id/relpass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:text="Nouveau avec Kungry ?"
                 android:textColor="@color/whitecolor"
-                android:layout_below="@id/loging"
+                android:layout_below="@id/loging5"
                 android:layout_marginStart="88dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="88dp" />
@@ -165,12 +159,19 @@
                 android:text="M'inscrire"
                 android:textStyle="bold"
                 android:textColor="@color/whitecolor"
-                android:layout_below="@id/loging"
+                android:layout_below="@id/loging5"
                 android:layout_toEndOf="@+id/txtinscription"
                 android:layout_toRightOf="@+id/txtinscription"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="88dp" />
+
+            <include
+                android:id="@+id/pageLogging"
+                layout="@layout/page_logged"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
         </RelativeLayout>
     </RelativeLayout>
 
