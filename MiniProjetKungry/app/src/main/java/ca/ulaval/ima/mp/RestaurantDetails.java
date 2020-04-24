@@ -56,8 +56,6 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        onRestart();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_details);
 
@@ -76,7 +74,6 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
         RelativeLayout relativeLayout1 = findViewById(R.id.txtgeolocation);
         relativeLayout1.setBackgroundColor(ContextCompat.getColor(this, R.color.whitecolor));
-
 
     }
 
@@ -261,6 +258,7 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
                 adapter = new RecyclerAdapter(this,reviews,reviewsStar,reviewsNames,reviewsComment,reviewsImg);
                 recyclerView.setAdapter(adapter);
 
+
             }
 
 
@@ -269,17 +267,10 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
 
     @Override
     public void connectToApplayReviews() {
-       //moveTaskToBack(true);
         Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
         intent.putExtra("result","get");
 
         startActivityForResult(intent,12345);
-
-    }
-
-    @Override
-    public void addYourReviews() {
-        Toast.makeText(this, "yesssss", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -293,9 +284,28 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
             View view1 = findViewById(R.id.card665);
             view.setVisibility(View.INVISIBLE);
             view1.setVisibility(View.VISIBLE);
-        }
 
-    }
+            Intent intent2 = getIntent();
+            final String restauId = intent2.getStringExtra("restoId");
+            final String revToken = data.getStringExtra("tokenForReview");
+            final String revTokenType = data.getStringExtra("tokenForReviewType");
+
+            Button button1 = findViewById(R.id.letReviews1);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent1 = new Intent(RestaurantDetails.this,UserReview.class);
+                    intent1.putExtra("restoIdd",restauId);
+                    intent1.putExtra("tokenForReview1",revToken);
+                    intent1.putExtra("tokenForReviewType1",revTokenType);
+
+                    startActivity(intent1);
+                }
+            });
+
+            }
+
+        }
 
     @Override
     protected void onDestroy() {

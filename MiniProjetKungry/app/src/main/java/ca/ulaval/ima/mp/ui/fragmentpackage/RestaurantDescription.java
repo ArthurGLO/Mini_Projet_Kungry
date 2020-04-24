@@ -55,14 +55,7 @@ public class RestaurantDescription extends Fragment {
 
             }
         });
-        Button button1 = root.findViewById(R.id.letReviews1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.addYourReviews();
 
-            }
-        });
 
 
 
@@ -117,7 +110,6 @@ public class RestaurantDescription extends Fragment {
         void goToReviews();
         void showReviews();
         void connectToApplayReviews();
-        void addYourReviews();
 
     }
 }

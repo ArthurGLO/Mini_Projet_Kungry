@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -85,7 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         viewHolder.itemDate.setText(reviewsDate.get(i));
         viewHolder.itemrate.setRating(Float.parseFloat(reviewsRate.get(i)));
         viewHolder.itemDesc.setText(reviewsDesc.get(i));
@@ -96,6 +97,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }else {
             Picasso.with(context).load(reviewsImg.get(i)).resize(100,100).into(viewHolder.itemImage);
         }
+
+        viewHolder.itemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView img = context.findViewById(R.id.img1);
+                if(img != null){
+                    img.setVisibility(View.INVISIBLE);
+                    RelativeLayout relativeLayoutImg = context.findViewById(R.id.shapImg);
+                    relativeLayoutImg.setVisibility(View.VISIBLE);
+                    ImageView userImg = context.findViewById(R.id.backImg1);
+                    Picasso.with(context).load(reviewsImg.get(i)).resize(440,250).into(userImg);
+                    ImageView userImg1 = context.findViewById(R.id.backImg2);
+                    userImg1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            RelativeLayout relativeLayoutImg = context.findViewById(R.id.shapImg);
+                            relativeLayoutImg.setVisibility(View.INVISIBLE);
+
+                        }
+                    });
+                }
+
+            }
+        });
+
     }
 
     @Override
