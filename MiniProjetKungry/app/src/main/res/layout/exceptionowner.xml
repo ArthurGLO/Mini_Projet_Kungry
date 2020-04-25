@@ -8,8 +8,8 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vous avez réeussi à vous inscrire, vous pouvez vous connecter"
-         android:layout_marginTop="9dp"
+        android:text="Connectez-vous,si vous avez déjà un compte!! Ou vérifier les champs d'entrée"
+        android:layout_marginTop="9dp"
         android:textStyle="bold"
         android:textSize="18sp"/>
 

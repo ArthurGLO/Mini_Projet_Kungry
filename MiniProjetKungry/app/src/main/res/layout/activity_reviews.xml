@@ -1,83 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relreviews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ReviewsActivity">
-
-        <include
-            android:id="@+id/card114"
-            layout="@layout/customactionbar2"
-            android:layout_width="421dp"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
-
-        <ScrollView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <include
+                    android:id="@+id/card114"
+                    layout="@layout/customactionbar2"
+                    android:layout_width="421dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:visibility="visible" />
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
+                <ScrollView android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                                <TextView
-                                    android:id="@+id/eval12"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/relMap"
-                                    android:layout_marginStart="20dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginTop="30dp"
-                                    android:text="Évaluations"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/txteval12"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/relMap"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginTop="135dp"
-                                    android:layout_marginBottom="15dp"
-                                    android:layout_toEndOf="@+id/eval12"
-                                    android:layout_toRightOf="@+id/eval12"
-                                    android:text="(44)"
-                                    android:textSize="15sp" />
-
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
                                 <RelativeLayout
-                                    android:id="@+id/cardlayout"
-                                    android:layout_width="428dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_below="@id/eval12"
-                                    android:layout_marginStart="15dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginTop="35dp"
-                                    android:layout_marginEnd="25dp"
-                                    android:layout_marginRight="25dp">
-
-                                        <androidx.coordinatorlayout.widget.CoordinatorLayout
-                                            android:layout_width="match_parent"
+                                    android:id="@+id/relrev"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent">
+                                        <TextView
+                                            android:id="@+id/eval12"
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:fitsSystemWindows="true"
-                                            tools:context=".ReviewsActivity" />
+                                            android:layout_below="@+id/relMap"
+                                            android:layout_marginStart="20dp"
+                                            android:layout_marginLeft="20dp"
+                                            android:layout_marginTop="30dp"
+                                            android:text="Évaluations"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
 
-                                        <androidx.recyclerview.widget.RecyclerView
-                                            android:id="@+id/recycler_view1"
-                                            android:layout_width="431dp"
-                                            android:layout_height="match_parent" />
-
+                                        <TextView
+                                            android:id="@+id/txteval12"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/relMap"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="35dp"
+                                            android:layout_marginBottom="15dp"
+                                            android:layout_toEndOf="@+id/eval12"
+                                            android:layout_toRightOf="@+id/eval12"
+                                            android:text="(44)"
+                                            android:textSize="15sp" />
+                                        <RelativeLayout
+                                            android:id="@+id/cardlayout"
+                                            android:layout_width="428dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_below="@id/eval12"
+                                            android:layout_marginStart="15dp"
+                                            android:layout_marginLeft="20dp"
+                                            android:layout_marginTop="35dp"
+                                            android:layout_marginEnd="25dp"
+                                            android:layout_marginRight="25dp">
+                                                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:fitsSystemWindows="true"
+                                                    tools:context=".ReviewsActivity" />
+                                                <androidx.recyclerview.widget.RecyclerView
+                                                    android:id="@+id/recycler_view1"
+                                                    android:layout_width="431dp"
+                                                    android:layout_height="match_parent" />
+                                        </RelativeLayout>
                                 </RelativeLayout>
-                        </RelativeLayout>
+                        </LinearLayout>
+                </ScrollView>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/cardImg"
+            android:layout_width="39dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="40dp"
+            android:foregroundGravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.014"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.068" />
+        <RelativeLayout
+            android:id="@+id/shapImg1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient"
+            android:visibility="invisible">
 
-                </LinearLayout>
-        </ScrollView>
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/backImg21"
+                    android:layout_width="48dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="45dp"
+                    android:foregroundGravity="top"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.014"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.068"
+                    app:srcCompat="@drawable/ic_backdark_foreground" />
+
+                <ImageView
+                    android:id="@+id/backImg11"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="250dp"
+                    app:srcCompat="@drawable/ic_icone_add" />
+        </RelativeLayout>
+
+</RelativeLayout>

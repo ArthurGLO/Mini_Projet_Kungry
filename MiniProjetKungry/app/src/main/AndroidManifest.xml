@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UserReview" />
-        <activity android:name=".ReviewsActivity" />
+        <activity android:name=".ReviewsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".RestaurantDetails"/>
         <activity
             android:name=".RestaurantDetails"
             android:parentActivityName=".MainActivity"
@@ -44,7 +46,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
+            android:label="Kungry"
             android:parentActivityName=".RestaurantDetails"
             android:theme="@style/AppTheme">
             <intent-filter>

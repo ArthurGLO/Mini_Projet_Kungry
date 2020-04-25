@@ -26,13 +26,13 @@ public class ReviewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
 
-        getSupportActionBar().hide();
-        ImageView imageView = findViewById(R.id.iconBack);
 
+        ImageView imageView = findViewById(R.id.cardImg);
+        imageView.bringToFront();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+               onBackPressed();
             }
         });
 

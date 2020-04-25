@@ -66,7 +66,7 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+               finish();
             }
         });
         RelativeLayout relativeLayout = findViewById(R.id.reldays);
@@ -289,6 +289,18 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
             final String restauId = intent2.getStringExtra("restoId");
             final String revToken = data.getStringExtra("tokenForReview");
             final String revTokenType = data.getStringExtra("tokenForReviewType");
+
+            ImageView imageView = findViewById(R.id.img1);
+            imageView.bringToFront();
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("conBack","back");
+                    setResult(1234,intent);
+                    finish();
+                }
+            });
 
             Button button1 = findViewById(R.id.letReviews1);
             button1.setOnClickListener(new View.OnClickListener() {
