@@ -4,11 +4,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -45,32 +49,56 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import ca.ulaval.ima.mp.api.Client;
+import ca.ulaval.ima.mp.api.Service;
 import ca.ulaval.ima.mp.domain.Restaurant;
-import ca.ulaval.ima.mp.ui.dashboard.DashboardFragment;
+import ca.ulaval.ima.mp.domain.RestaurantResponse;
+import ca.ulaval.ima.mp.domain.Result;
+import ca.ulaval.ima.mp.ui.restaurant.RestaurantListFragment;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
-import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
-import ca.ulaval.ima.mp.utils.CustomListview;
+import ca.ulaval.ima.mp.ui.compte.CompteFragment;
+import ca.ulaval.ima.mp.utils.PaginationAdapter;
+import ca.ulaval.ima.mp.utils.PaginationScrollListener;
 import ca.ulaval.ima.mp.utils.exceptions.DialogOwner;
+import ca.ulaval.ima.mp.utils.exceptions.NotIdentificate;
+import ca.ulaval.ima.mp.utils.exceptions.ProfileException;
 import ca.ulaval.ima.mp.utils.exceptions.UserDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener,
-        NotificationsFragment.CompteFragmentListner, DashboardFragment.RestaurantFragmentListener {
+        CompteFragment.CompteFragmentListner, RestaurantListFragment.RestaurantFragmentListener {
 
     GoogleMap map;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Boolean mLocationPermissionsGranted = false;
     private ListView myListView;
 
+    private static final String TAG = "MainActivity";
+
+    PaginationAdapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+
+    RecyclerView rv;
+    ProgressBar progressBar;
+
+    private static final int PAGE_START = 1;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES = 3;
+    private int currentPage = PAGE_START;
+
+    private Service restoService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
@@ -79,14 +107,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         NavigationUI.setupWithNavController(navView, navController);
 
         if(googleServicesAvailable()){
-            Toast.makeText(this,"Perfecto !!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Bienvenue !!",Toast.LENGTH_LONG).show();
         }
 
         View view = findViewById(R.id.card11);
         view.bringToFront();
         getSupportActionBar().hide();
-        //getSupportActionBar().setCustomView(R.layout.customactionbar);
-
         settings();
 
     }
@@ -123,11 +149,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             Location currentLocation = (Location) task.getResult();
                             double latitude = currentLocation.getLatitude();
                             double longitude = currentLocation.getLongitude();
-                            Toast.makeText(MainActivity.this, latitude+" "+longitude, Toast.LENGTH_SHORT).show();
-                            getArroudRestaurant(latitude,longitude);
+                            getAroundRestaurant(latitude,longitude);
 
                         }else{
-                            Log.e("DEBUG", "onComplete: current location is null");
                             Toast.makeText(MainActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -138,81 +162,114 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         }
     }
 
-    private void getArroudRestaurant(final double latitude, final double longitude){
-        final ArrayList<String> restoName = new ArrayList<>();
-        final ArrayList<String> img = new ArrayList<>();
-        final ArrayList<String> type = new ArrayList<>();
-        final ArrayList<String> reviewsCount = new ArrayList<>();
-        final ArrayList<String> restoKm = new ArrayList<>();
-            final ArrayList<String> reviewsStars = new ArrayList<>();
-            myListView = findViewById(R.id.resto_list);
+    private void getAroundRestaurant(final double latitude, final double longitude){
 
+        rv =  findViewById(R.id.mainRecycler);
+        progressBar = findViewById(R.id.main_progress);
+        adapter = new PaginationAdapter(this);
+        layoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(layoutManager);
 
-        final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "https://kungry.ca/api/v1/restaurant/search/?page=1&page_size=6&latitude="+latitude+"&longitude="+longitude+"&radius=6";
+        rv.setItemAnimator(new DefaultItemAnimator());
 
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        rv.setAdapter(adapter);
+
+        rv.addOnScrollListener(new PaginationScrollListener((LinearLayoutManager) layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+
+                // mocking network delay for API call
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
-                        try {
-                            final JSONObject jsonObject = response.getJSONObject("content");
-                            final JSONArray jsonArray = jsonObject.getJSONArray("results");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject objecti = jsonArray.getJSONObject(i);
-                                String name = objecti.getString("name");
-                                String image = objecti.getString("image");
-                                String dist = objecti.getString("distance");
-                                int countReview = objecti.getInt("review_count");
-                                String typeRestaut = objecti.getString("type");
-                                float rate = (float)objecti.getDouble("review_average");
-                                restoName.add(name);
-                                 img.add(image);
-                                type.add(typeRestaut);
-                                 reviewsCount.add(String.valueOf(countReview));
-                                 restoKm.add(dist);
-                               reviewsStars.add(String.valueOf(rate));
-                            }
-
-                            CustomListview customListview = new CustomListview(MainActivity.this,restoName,
-                                    reviewsCount,restoKm,reviewsStars,img,type);
-
-                            myListView.setAdapter(customListview);
-                            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        if(position==i){
-                                            try {
-                                                JSONObject objectii = jsonArray.getJSONObject(i);
-                                                int theRestaurantId = objectii.getInt("id");
-                                                getRestaurantDescription(theRestaurantId,latitude,longitude);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void run() {
+                        loadNextPage(latitude,longitude);
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        );
+                }, 1000);
+            }
 
-// add it to the RequestQueue
-        queue.add(getRequest);
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+        restoService = Client.getClient().create(Service.class);
+
+        loadFirstPage(latitude,longitude);
+
+    }
+
+
+
+    private void loadFirstPage(double l, double lon) {
+        Log.e(TAG, "loadFirstPage: ");
+
+        callTopRatedMoviesApi(l,lon).enqueue(new Callback<RestaurantResponse>() {
+
+            @Override
+            public void onResponse(Call<RestaurantResponse> call,  retrofit2.Response<RestaurantResponse> response) {
+                List<Result> results = fetchResults(response);
+
+                progressBar.setVisibility(View.GONE);
+                adapter.addAll(results);
+
+                if (currentPage <= TOTAL_PAGES) adapter.addLoadingFooter();
+                else isLastPage = true;
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantResponse> call, Throwable t) {
+                t.printStackTrace();
+
+            }
+        });
+
+    }
+
+    private List<Result> fetchResults(retrofit2.Response<RestaurantResponse> response) {
+        RestaurantResponse res = response.body();
+
+
+        return res.getContent().getResults();
+    }
+
+    private void loadNextPage(double a, double b) {
+        Log.e(TAG, "loadNextPage: " + currentPage);
+
+        callTopRatedMoviesApi(a,b).enqueue(new Callback<RestaurantResponse>() {
+            @Override
+            public void onResponse(Call<RestaurantResponse> call, retrofit2.Response<RestaurantResponse> response) {
+                adapter.removeLoadingFooter();
+                isLoading = false;
+
+                List<Result> results = fetchResults(response);
+                adapter.addAll(results);
+
+                if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
+                else isLastPage = true;
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+
+    private Call<RestaurantResponse> callTopRatedMoviesApi(double la,double longi) {
+        return restoService.getPopularMovies(currentPage,10, la,longi,10);
     }
 
     private void getRestaurantDescription(final int id, final double lat, final double longitude){
@@ -230,7 +287,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // display response
                         try {
                             final JSONObject jsonObject = response.getJSONObject("content");
                             JSONObject objLocation = jsonObject.getJSONObject("location");
@@ -362,7 +418,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                 }
         );
 
-// add it to the RequestQueue
         queue.add(getRequest);
     }
 
@@ -424,6 +479,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.toString());
+                        ProfileException userDialog = new ProfileException();
+                        userDialog.show(getSupportFragmentManager(), "dialog");
+
                     }
                 }
         ) {
@@ -447,8 +505,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     }
 
 
-
-
     private  void display(final String token, final String tokenType){
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/account/me/";
@@ -457,7 +513,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // display response
                         try {
                             JSONObject jsonObject = response.getJSONObject("content");
                             String lastName = jsonObject.getString("last_name");
@@ -490,7 +545,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                                     relativeLayout.setVisibility(View.VISIBLE);
                                     view.setVisibility(View.INVISIBLE);
 
-
                                 }
                             });
 
@@ -515,7 +569,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
             }
         };
 
-// add it to the RequestQueue
         queue.add(getRequest);
     }
 
@@ -564,8 +617,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
                         Log.d("Error.Response", error.toString());
+                        NotIdentificate userDialog = new NotIdentificate();
+                        userDialog.show(getSupportFragmentManager(), "dialog");
+
                     }
                 }
         ) {
@@ -677,7 +732,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
             }
         };
 
-// add it to the RequestQueue
         queue.add(getRequest);
     }
 

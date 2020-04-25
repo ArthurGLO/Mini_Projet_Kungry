@@ -1,18 +1,15 @@
 package ca.ulaval.ima.mp.utils;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -46,8 +43,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
-        public int currentItem;
         public ImageView itemImage;
         public TextView itemDate;
         public TextView itemName;
@@ -118,7 +113,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     userImg1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("DEBUG","bizz");
                             img.setVisibility(View.VISIBLE);
                             RelativeLayout relativeLayoutImg = context.findViewById(R.id.shapImg);
                             relativeLayoutImg.setVisibility(View.INVISIBLE);

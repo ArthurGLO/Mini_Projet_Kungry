@@ -140,12 +140,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-        /**final LatLng latLng = mListener.showRestaurantPlace();
-       setPlace(latLng);*/
-    }
-
-    private void setPlace(LatLng place){
-
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {

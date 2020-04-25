@@ -3,9 +3,7 @@ package ca.ulaval.ima.mp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +24,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -41,8 +35,6 @@ import java.util.ArrayList;
 import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.fragmentpackage.MapFragmentClone;
 import ca.ulaval.ima.mp.ui.fragmentpackage.RestaurantDescription;
-import ca.ulaval.ima.mp.ui.home.HomeFragment;
-import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.RecyclerAdapter;
 
 public class RestaurantDetails extends AppCompatActivity implements RestaurantDescription.RestoFragmentListener,
@@ -111,7 +103,6 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // display response
                         try {
                             final JSONArray jsonArray = response.getJSONObject("content").getJSONArray("results");
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -187,7 +178,6 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
                 }
         );
 
-// add it to the RequestQueue
         queue.add(getRequest);
     }
 
@@ -221,6 +211,8 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
             Restaurant detailsResto = intent.getParcelableExtra("resto");
             ArrayList<String> reviewHour = intent.getStringArrayListExtra("reviewsHeures");
             String evaluations = intent.getStringExtra("eval");
+            String evaDist = intent.getStringExtra("restdist");
+
 
             if (reviews != null && reviewsStar != null &&
                     reviewsNames != null && reviewsComment != null &&
@@ -237,7 +229,7 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
                 Picasso.with(this).load(detailsResto.getImage()).resize(230,150).into(imageView);
                 txtName.setText(detailsResto.getRestaurantName());
                 txtype.setText(detailsResto.getType()+"/bar - Repas Gastronomique");
-                txtdist.setText(detailsResto.getDistance()+" km");
+                txtdist.setText(evaDist+" km");
                 ratingBar.setRating(detailsResto.getReview_average());
                 txtCount.setText("("+detailsResto.getReview_count()+")");
 
@@ -245,7 +237,7 @@ public class RestaurantDetails extends AppCompatActivity implements RestaurantDe
                 String newphone = "("+s[1]+s[2]+s[3]+")"+" "+s[4]+s[5]+s[6]+"-"+s[7]+s[8]+s[9]+s[10];
 
                 phone.setText(newphone);
-                //link.setText(detailsResto.getWebSite());
+                link.setText(detailsResto.getWebSite());
                 eval.setText("("+evaluations+")");
 
 

@@ -232,7 +232,8 @@
                         android:layout_marginTop="13dp"
                         android:text="Lundi"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t2"
@@ -243,7 +244,8 @@
                         android:layout_marginTop="1dp"
                         android:text="Mardi"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t3"
@@ -254,7 +256,8 @@
                         android:layout_marginTop="1dp"
                         android:text="Mercredi"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t4"
@@ -265,7 +268,8 @@
                         android:layout_marginTop="1dp"
                         android:text="Jeudi"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t5"
@@ -276,7 +280,8 @@
                         android:layout_marginTop="1dp"
                         android:text="Vendredi"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t6"
@@ -287,7 +292,8 @@
                         android:layout_marginTop="1dp"
                         android:text="Samedi"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t7"
@@ -299,7 +305,8 @@
                         android:layout_marginBottom="3dp"
                         android:text="Dimanche"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp" />
 
                     <TextView
                         android:id="@+id/t11"
