@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/desc1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/linearLayout1"
     tools:context=".ui.fragmentpackage.RestaurantDescription">
 
     <RelativeLayout
+        android:id="@+id/forclicable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -576,8 +577,8 @@
                 android:id="@+id/backImg2"
                 android:layout_width="48dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginLeft="27dp"
                 android:foregroundGravity="top"
                 android:layout_marginTop="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,4 +1,4 @@
-package ca.ulaval.ima.mp.utils;
+package ca.ulaval.ima.mp.utils.exceptions;
 
 
 import android.app.Dialog;
@@ -24,7 +24,13 @@ public class UserDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
 
-        builder.setView(view);
+        builder.setView(view)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
 
         return builder.create();
     }

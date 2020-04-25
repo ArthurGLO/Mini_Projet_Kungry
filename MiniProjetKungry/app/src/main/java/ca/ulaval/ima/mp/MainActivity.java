@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,10 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
-import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -42,7 +38,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,10 +49,11 @@ import java.util.Map;
 
 import ca.ulaval.ima.mp.domain.Restaurant;
 import ca.ulaval.ima.mp.ui.dashboard.DashboardFragment;
-import ca.ulaval.ima.mp.ui.fragmentpackage.RestaurantDescription;
 import ca.ulaval.ima.mp.ui.home.HomeFragment;
 import ca.ulaval.ima.mp.ui.notifications.NotificationsFragment;
 import ca.ulaval.ima.mp.utils.CustomListview;
+import ca.ulaval.ima.mp.utils.exceptions.DialogOwner;
+import ca.ulaval.ima.mp.utils.exceptions.UserDialog;
 
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.MapFragmentListener,
@@ -90,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         view.bringToFront();
         getSupportActionBar().hide();
         //getSupportActionBar().setCustomView(R.layout.customactionbar);
-        settings();
 
+        settings();
 
     }
 
@@ -401,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
     @Override
     public void displayUserAccount(final String userMail, final String userpassWord) {
+
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "https://kungry.ca/api/v1/account/login/";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -470,6 +467,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             int reviewsTotal = jsonObject.getInt("total_review_count");
                             final RelativeLayout relativeLayout = findViewById(R.id.pageAccount);
                             relativeLayout.setVisibility(View.INVISIBLE);
+
+
                             final View view = findViewById(R.id.pageLogging);
                             view.setVisibility(View.VISIBLE);
                             View view1 = findViewById(R.id.cardd);
@@ -481,6 +480,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
                             textView.setText(owner);
                             textMail.setText(mail);
                             textNumber.setText(String.valueOf(reviewsTotal));
+                            Log.e("Error.Response", "ggggg");
+
 
                             Button button = findViewById(R.id.loging);
                             button.setOnClickListener(new View.OnClickListener() {
@@ -586,6 +587,52 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
     }
 
+    @Override
+    public void userApplayingKungry(final String name, final String lastName, final String mail, final String pass) {
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "https://kungry.ca/api/v1/account/";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        UserDialog userDialog = new UserDialog();
+                        userDialog.show(getSupportFragmentManager(), "dialog");
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                        DialogOwner d = new DialogOwner();
+                        d.show(getSupportFragmentManager(), "dialog");
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("client_id", "STO4WED2NTDDxjLs8ODios5M15HwsrRlydsMa1t0");
+                params.put("client_secret", "YOVWGpjSnHd5AYDxGBR2CIB09ZYM1OPJGnH3ijkKwrUMVvwLpr" +
+                        "UmLf6fxku06ClUKTAEl5AeZN36V9QYBYvTtrLMrtUtXVuXOGWle" +
+                        "QGYyApC2a469l36TdlXFqAG1tpK");
+                params.put("first_name", name );
+                params.put("last_name", lastName);
+                params.put("email", mail);
+                params.put("password", pass);
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
 
     private  void display1(final String token, final String tokenType){
 
@@ -655,11 +702,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==12345)
+        if(requestCode!= 12345)
         {
-            BottomNavigationView mBottomNavigationView = findViewById(R.id.nav_view);
-            mBottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
+            settings();
 
+        }else {
+
+            BottomNavigationView mBottomNavigationView = findViewById(R.id.nav_view);
+            mBottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
         }
 

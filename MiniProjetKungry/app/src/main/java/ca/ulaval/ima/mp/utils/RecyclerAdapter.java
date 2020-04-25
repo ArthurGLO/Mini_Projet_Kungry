@@ -1,10 +1,12 @@
 package ca.ulaval.ima.mp.utils;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -93,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.itemName.setText(reviewsName.get(i));
         if(reviewsImg.get(i) == null){
             viewHolder.relativeLayout.removeView(viewHolder.itemImage);
-            viewHolder.itemImage.setVisibility(View.INVISIBLE);
+            viewHolder.itemImage.setVisibility(View.GONE);
         }else {
             Picasso.with(context).load(reviewsImg.get(i)).resize(100,100).into(viewHolder.itemImage);
         }
@@ -101,18 +103,47 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.itemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView img = context.findViewById(R.id.img1);
+                final ImageView img = context.findViewById(R.id.img1);
                 if(img != null){
-                    img.setVisibility(View.INVISIBLE);
+                    img.setVisibility(View.GONE);
                     RelativeLayout relativeLayoutImg = context.findViewById(R.id.shapImg);
                     relativeLayoutImg.setVisibility(View.VISIBLE);
                     ImageView userImg = context.findViewById(R.id.backImg1);
                     Picasso.with(context).load(reviewsImg.get(i)).resize(440,250).into(userImg);
+
+                }
+
+                if(img != null){
                     ImageView userImg1 = context.findViewById(R.id.backImg2);
                     userImg1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Log.e("DEBUG","bizz");
+                            img.setVisibility(View.VISIBLE);
                             RelativeLayout relativeLayoutImg = context.findViewById(R.id.shapImg);
+                            relativeLayoutImg.setVisibility(View.INVISIBLE);
+
+                        }
+                    });
+                }
+
+
+
+                final RelativeLayout relativeLayoutImg = context.findViewById(R.id.shapImg1);
+                ImageView userImg1 = context.findViewById(R.id.backImg21);
+                final ImageView userback = context.findViewById(R.id.cardImg);
+                if(relativeLayoutImg != null){
+                    userback.setVisibility(View.GONE);
+                    relativeLayoutImg.setVisibility(View.VISIBLE);
+                    ImageView userImg = context.findViewById(R.id.backImg11);
+                    Picasso.with(context).load(reviewsImg.get(i)).resize(440,250).into(userImg);
+
+                }
+                if(relativeLayoutImg != null){
+                    userImg1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            userback.setVisibility(View.VISIBLE);
                             relativeLayoutImg.setVisibility(View.INVISIBLE);
 
                         }
