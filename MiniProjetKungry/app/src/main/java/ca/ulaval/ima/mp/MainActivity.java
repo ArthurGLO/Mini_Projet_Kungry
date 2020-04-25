@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -117,6 +118,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
     public boolean googleServicesAvailable(){
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int isAvailable = api.isGooglePlayServicesAvailable(this);
@@ -167,14 +174,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
         rv =  findViewById(R.id.mainRecycler);
         progressBar = findViewById(R.id.main_progress);
         adapter = new PaginationAdapter(this);
-        layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
 
         rv.setItemAnimator(new DefaultItemAnimator());
 
         rv.setAdapter(adapter);
 
-        rv.addOnScrollListener(new PaginationScrollListener((LinearLayoutManager) layoutManager) {
+        rv.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
