@@ -92,7 +92,8 @@
                     android:layout_height="145dp"
                     android:layout_marginStart="9dp"
                     android:layout_marginLeft="9dp"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:autofillHints="text" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -147,7 +148,8 @@
                 android:layout_marginEnd="19dp"
                 android:layout_marginRight="19dp"
                 android:layout_marginBottom="18dp"
-                app:srcCompat="@drawable/ic_icone_add" />
+                app:srcCompat="@drawable/ic_icone_add"
+                android:contentDescription="TODO" />
         </RelativeLayout>
 
         <Button

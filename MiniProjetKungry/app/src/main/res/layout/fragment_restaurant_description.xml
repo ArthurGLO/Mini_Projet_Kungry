@@ -31,7 +31,8 @@
                 <ImageView
                     android:id="@+id/img"
                     android:layout_width="match_parent"
-                    android:layout_height="290dp" />
+                    android:layout_height="290dp"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/txt_title"
@@ -118,7 +119,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_pin_foreground" />
+                        app:srcCompat="@drawable/ic_pin_foreground"
+                        android:contentDescription="TODO" />
 
                 </RelativeLayout>
 
@@ -141,7 +143,8 @@
                         android:layout_marginTop="8dp"
                         android:foregroundGravity="center_vertical"
                         android:gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_call_foreground" />
+                        app:srcCompat="@drawable/ic_call_foreground"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textcall"
@@ -181,7 +184,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
-                        app:srcCompat="@drawable/ic_link_foreground" />
+                        app:srcCompat="@drawable/ic_link_foreground"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/textlink"
@@ -452,7 +456,8 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginTop="12dp"
                             android:gravity="center_vertical"
-                            app:srcCompat="@drawable/ic_pin_foreground" />
+                            app:srcCompat="@drawable/ic_pin_foreground"
+                            android:contentDescription="TODO" />
 
                         <TextView
                             android:id="@+id/geolocation"
@@ -538,7 +543,8 @@
                         android:layout_marginStart="70dp"
                         android:layout_marginLeft="70dp"
                         android:layout_marginTop="21dp"
-                        app:srcCompat="@drawable/ic_eye_foreground"/>
+                        app:srcCompat="@drawable/ic_eye_foreground"
+                        android:contentDescription="TODO" />
 
                     <TextView
                         android:id="@+id/txtvue"
@@ -594,7 +600,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.068"
-                app:srcCompat="@drawable/ic_backdark_foreground" />
+                app:srcCompat="@drawable/ic_backdark_foreground"
+                android:contentDescription="TODO" />
             <ImageView
                 android:id="@+id/backImg1"
                 android:layout_width="match_parent"
@@ -603,7 +610,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="250dp"
-                app:srcCompat="@drawable/ic_icone_add" />
+                app:srcCompat="@drawable/ic_icone_add"
+                android:contentDescription="TODO" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

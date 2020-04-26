@@ -133,7 +133,8 @@
                 android:layout_toEndOf="@+id/reviewsCount"
                 android:layout_toRightOf="@+id/reviewsCount"
                 android:gravity="center_vertical"
-                app:srcCompat="@drawable/ic_pin_foreground" />
+                app:srcCompat="@drawable/ic_pin_foreground"
+                android:contentDescription="TODO" />
 
         </RelativeLayout>
 
