@@ -32,13 +32,14 @@
                     android:id="@+id/img"
                     android:layout_width="match_parent"
                     android:layout_height="290dp"
-                    android:contentDescription="TODO" />
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/txt_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="L'affaire"
@@ -53,7 +54,8 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="8dp"
                     android:text="/Food-Confort"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_marginStart="20dp" />
 
                 <RelativeLayout
                     android:id="@+id/rel1"
@@ -95,7 +97,8 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="4dp"
                         android:text="(333)"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:paddingStart="4dp" />
 
                     <TextView
                         android:id="@+id/textdistance"
@@ -108,6 +111,7 @@
                         android:layout_toEndOf="@+id/marker"
                         android:layout_toRightOf="@+id/marker"
                         android:gravity="center_vertical"
+                        android:paddingStart="4dp"
                         android:paddingLeft="4dp"
                         android:text="45 km"
                         android:textSize="15sp" />
@@ -120,8 +124,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         app:srcCompat="@drawable/ic_pin_foreground"
-                        android:contentDescription="TODO" />
-
+                        tools:ignore="ContentDescription" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -144,7 +147,7 @@
                         android:foregroundGravity="center_vertical"
                         android:gravity="center_vertical"
                         app:srcCompat="@drawable/ic_call_foreground"
-                        android:contentDescription="TODO" />
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/textcall"
@@ -158,6 +161,7 @@
                         android:layout_toRightOf="@+id/call"
                         android:foregroundGravity="center_vertical"
                         android:gravity="center_vertical"
+                        android:paddingStart="4dp"
                         android:paddingLeft="4dp"
                         android:text="(418) 271-4000"
                         android:textSize="19sp" />
@@ -185,7 +189,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         app:srcCompat="@drawable/ic_link_foreground"
-                        android:contentDescription="TODO" />
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/textlink"
@@ -198,6 +202,7 @@
                         android:layout_toEndOf="@+id/link"
                         android:layout_toRightOf="@+id/link"
                         android:gravity="center_vertical"
+                        android:paddingStart="4dp"
                         android:paddingLeft="4dp"
                         android:text="Site web de l’entreprise"
                         android:textSize="19sp" />
@@ -232,85 +237,85 @@
                         android:id="@+id/t1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="13dp"
                         android:text="Lundi"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/t1"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:text="Mardi"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t2"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:text="Mercredi"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t3"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:text="Jeudi"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t4"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:text="Vendredi"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t5"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:text="Samedi"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/t6"
+                        android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:layout_marginBottom="3dp"
                         android:text="Dimanche"
                         android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="15dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/t11"
@@ -457,7 +462,7 @@
                             android:layout_marginTop="12dp"
                             android:gravity="center_vertical"
                             app:srcCompat="@drawable/ic_pin_foreground"
-                            android:contentDescription="TODO" />
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/geolocation"
@@ -507,10 +512,10 @@
                     android:layout_height="800dp"
                     android:layout_below="@id/txteval"
                     android:layout_marginStart="15dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="48dp"
-                    android:layout_marginEnd="25dp">
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginRight="25dp">
 
                     <androidx.coordinatorlayout.widget.CoordinatorLayout
                         android:layout_width="match_parent"
@@ -540,11 +545,11 @@
                         android:id="@+id/vue"
                         android:layout_width="40dp"
                         android:layout_height="31dp"
-                        android:layout_marginStart="70dp"
-                        android:layout_marginLeft="70dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="21dp"
                         app:srcCompat="@drawable/ic_eye_foreground"
-                        android:contentDescription="TODO" />
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/txtvue"
@@ -556,29 +561,13 @@
                         android:layout_toEndOf="@+id/vue"
                         android:layout_toRightOf="@+id/vue"
                         android:text="Voir plus d'évaluation"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
-        <RelativeLayout
-            android:id="@+id/loging2"
-            android:layout_width="match_parent"
-            android:layout_height="159dp"
-            android:layout_marginTop="550dp"
-            android:background="@drawable/boxshape">
-
-            <include
-                android:id="@+id/card66"
-                layout="@layout/applayingreviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:visibility="visible" />
-        </RelativeLayout>
         <RelativeLayout
             android:id="@+id/shapImg"
             android:layout_width="match_parent"
@@ -601,7 +590,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.068"
                 app:srcCompat="@drawable/ic_backdark_foreground"
-                android:contentDescription="TODO" />
+                tools:ignore="ContentDescription" />
             <ImageView
                 android:id="@+id/backImg1"
                 android:layout_width="match_parent"
@@ -611,7 +600,23 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="250dp"
                 app:srcCompat="@drawable/ic_icone_add"
-                android:contentDescription="TODO" />
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/loging2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="420dp"
+            android:background="@drawable/boxshape">
+
+            <include
+                android:id="@+id/card66"
+                layout="@layout/applayingreviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:visibility="visible" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

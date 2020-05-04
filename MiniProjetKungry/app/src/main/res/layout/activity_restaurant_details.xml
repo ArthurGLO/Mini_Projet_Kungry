@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/img1"
-        android:layout_width="48dp"
-        android:layout_height="45dp"
+        android:layout_width="43dp"
+        android:layout_height="38dp"
         android:layout_marginStart="11dp"
         android:layout_marginLeft="11dp"
         android:foregroundGravity="top"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.068"
         app:srcCompat="@drawable/ic_backdark_foreground"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
     <fragment
         android:id="@+id/fragment"
@@ -45,6 +45,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragment"
         app:layout_constraintVertical_bias="1.0" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

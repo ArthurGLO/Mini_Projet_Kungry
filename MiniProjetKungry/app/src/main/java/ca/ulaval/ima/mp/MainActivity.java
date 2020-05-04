@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
             Toast.makeText(this,"Bienvenue !!",Toast.LENGTH_LONG).show();
         }
 
-        View view = findViewById(R.id.card11);
+        View view = findViewById(R.id.card11e);
         view.bringToFront();
         getSupportActionBar().hide();
         settings();
@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.MapF
 
     @Override
     public void displaytoolbar() {
-        View view = findViewById(R.id.card11);
+        View view = findViewById(R.id.card11e);
         view.setVisibility(View.INVISIBLE);
 
 

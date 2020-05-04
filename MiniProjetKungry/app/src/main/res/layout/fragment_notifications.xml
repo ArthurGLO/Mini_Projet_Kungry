@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/connexion1"
     android:layout_height="match_parent">
@@ -9,50 +10,53 @@
         android:id="@+id/pageAccount"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backimage">
+        android:background="@mipmap/ic_image_foreground">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shapegradient">
+
             <ImageView
                 android:id="@+id/kang"
-                android:layout_width="132dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_marginLeft="140dp"
-                android:layout_marginTop="155dp"
+                android:layout_width="71dp"
+                android:layout_height="78dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="305dp"
                 app:srcCompat="@drawable/ic_australian_kangaroo_logo"
-                android:contentDescription="TODO" />
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/kung"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/kang"
-                android:layout_marginLeft="175dp"
+                android:layout_marginStart="125dp"
+                android:layout_marginLeft="125dp"
                 android:layout_marginTop="21dp"
                 android:text="Kungry"
                 android:textColor="@color/whitecolor"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:layout_marginStart="175dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/connexion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Connexion"
-                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/kung"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="Connexion"
                 android:textColor="@color/whitecolor"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/relcouriel"
-                android:layout_width="369dp"
-                android:layout_height="63dp"
+                android:layout_width="290dp"
+                android:layout_height="30dp"
                 android:layout_below="@+id/connexion"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
@@ -66,30 +70,30 @@
                     android:layout_width="25dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="13dp"
+                    android:contentDescription="TODO"
                     app:srcCompat="@drawable/ic_np_email_1569995_000000"
-                    android:contentDescription="TODO" />
+                    tools:ignore="ContentDescription" />
 
                 <EditText
-                    android:background="@null"
                     android:id="@+id/edit_userMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toEndOf="@+id/imcouriel"
                     android:layout_toRightOf="@+id/imcouriel"
+                    android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="Couriel"
                     android:inputType="text"
-                    android:textSize="18sp"
-                    android:layout_marginStart="15dp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relpass"
-                android:layout_width="369dp"
-                android:layout_height="63dp"
+                android:layout_width="290dp"
+                android:layout_height="30dp"
                 android:layout_below="@+id/relcouriel"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
@@ -102,31 +106,31 @@
                     android:id="@+id/impass"
                     android:layout_width="25dp"
                     android:layout_height="35dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="13dp"
-                    app:srcCompat="@drawable/ic_np_password_2630646_000000"
                     android:layout_marginStart="15dp"
-                    android:contentDescription="TODO" />
+                    android:layout_marginLeft="15dp"
+                    app:srcCompat="@drawable/ic_np_password_2630646_000000"
+                    tools:ignore="ContentDescription" />
 
                 <EditText
-                    android:background="@null"
                     android:id="@+id/edit_userpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toEndOf="@+id/impass"
                     android:layout_toRightOf="@+id/impass"
+                    android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="Mot de passe"
-                    android:textSize="18sp"
-                    android:layout_marginStart="15dp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/loging5"
-                android:layout_below="@+id/relpass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/relpass"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
@@ -134,51 +138,55 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/boxshape">
+
                 <Button
                     android:id="@+id/loging1"
-                    android:layout_width="374dp"
-                    android:layout_height="63dp"
+                    android:layout_width="290dp"
+                    android:layout_height="30dp"
+                    android:background="#23D25B"
                     android:gravity="center_vertical"
                     android:text="ME CONNECTER"
-                    android:background="#23D25B"
-                    android:textColor="@color/whitecolor"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textColor="@color/whitecolor"
+                    android:textSize="15sp" />
+
                 <Button
                     android:id="@+id/loging01"
-                    android:layout_width="374dp"
-                    android:layout_height="63dp"
-                    android:gravity="center_vertical"
-                    android:visibility="gone"
-                    android:text="ME CONNECTER"
+                    android:layout_width="290dp"
+                    android:layout_height="30dp"
                     android:background="#23D25B"
-                    android:textColor="@color/whitecolor"
+                    android:gravity="center_vertical"
+                    android:text="ME CONNECTER"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textColor="@color/whitecolor"
+                    android:textSize="15dp"
+                    android:visibility="gone" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/txtinscription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nouveau avec Kungry ?"
-                android:textColor="@color/whitecolor"
                 android:layout_below="@id/loging5"
-                android:layout_marginStart="88dp"
+                android:layout_marginStart="58dp"
+                android:layout_marginLeft="58dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginLeft="88dp" />
+                android:text="Nouveau avec Kungry ?"
+                android:textColor="@color/whitecolor" />
+
             <TextView
                 android:id="@+id/userInscription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="M'inscrire"
-                android:textStyle="bold"
-                android:textColor="@color/whitecolor"
                 android:layout_below="@id/loging5"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="88dp"
+                android:layout_marginTop="12dp"
                 android:layout_toEndOf="@+id/txtinscription"
                 android:layout_toRightOf="@+id/txtinscription"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="88dp" />
+                android:text="M'inscrire"
+                android:textColor="@color/whitecolor"
+                android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
 

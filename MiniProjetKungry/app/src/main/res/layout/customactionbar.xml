@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,7 +9,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -18,15 +19,15 @@
 
     <ImageView
         android:id="@+id/marker"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="77dp"
+        android:layout_height="58dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginLeft="165dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="1dp"
         android:gravity="center_horizontal"
         app:srcCompat="@drawable/ic_logo_kungry"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
 
 </RelativeLayout>

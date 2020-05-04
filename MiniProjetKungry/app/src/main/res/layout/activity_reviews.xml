@@ -92,7 +92,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.068"
-            android:contentDescription="TODO" />
+            android:contentDescription="TODO"
+            tools:ignore="ContentDescription" />
         <RelativeLayout
             android:id="@+id/shapImg1"
             android:layout_width="match_parent"
@@ -115,7 +116,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.068"
                     app:srcCompat="@drawable/ic_backdark_foreground"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/backImg11"
@@ -126,7 +128,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="250dp"
                     app:srcCompat="@drawable/ic_icone_add"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    tools:ignore="ContentDescription" />
         </RelativeLayout>
 
 </RelativeLayout>

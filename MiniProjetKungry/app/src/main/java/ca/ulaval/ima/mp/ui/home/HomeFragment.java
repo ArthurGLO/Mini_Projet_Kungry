@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;//15
+    private static final float DEFAULT_ZOOM = 18;//15
     private TextView name1;
     private TextView descript;
     private TextView kilometer;
@@ -362,7 +362,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                             CameraPosition googlePlex = CameraPosition.builder()
                                     .target(new LatLng(latitude,longitude))
-                                    .zoom(13)
+                                    .zoom(12)
                                     .bearing(0)
                                     .tilt(45)
                                     .build();

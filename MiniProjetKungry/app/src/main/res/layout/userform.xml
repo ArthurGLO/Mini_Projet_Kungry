@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/connexion1"
     android:layout_height="match_parent">
@@ -9,7 +10,7 @@
         android:id="@+id/pageUserApplay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backimage">
+        android:background="@mipmap/ic_image_foreground">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,26 +18,26 @@
 
             <ImageView
                 android:id="@+id/kang"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_marginLeft="140dp"
-                android:layout_marginTop="130dp"
+                android:layout_width="51dp"
+                android:layout_height="71dp"
+                android:layout_marginStart="125dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginTop="280dp"
                 app:srcCompat="@drawable/ic_australian_kangaroo_logo"
-                android:contentDescription="TODO" />
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/kung"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/kang"
-                android:layout_marginLeft="175dp"
+                android:layout_marginLeft="125dp"
                 android:layout_marginTop="15dp"
                 android:text="Kungry"
                 android:textColor="@color/whitecolor"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_marginStart="175dp" />
+                android:layout_marginStart="125dp" />
 
             <TextView
                 android:id="@+id/connexion"
@@ -47,13 +48,13 @@
                 android:layout_below="@+id/kung"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/whitecolor"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginStart="20dp" />
             <RelativeLayout
                 android:id="@+id/relLastName"
-                android:layout_width="369dp"
-                android:layout_height="45dp"
+                android:layout_width="290dp"
+                android:layout_height="30dp"
                 android:layout_below="@+id/connexion"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
@@ -70,13 +71,13 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:hint="Prénom"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:layout_marginStart="15dp" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/relName"
-                android:layout_width="369dp"
-                android:layout_height="45dp"
+                android:layout_width="290dp"
+                android:layout_height="30dp"
                 android:layout_below="@+id/relLastName"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
@@ -103,8 +104,8 @@
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:id="@+id/picM"
-                    android:layout_width="369dp"
-                    android:layout_height="45dp"
+                    android:layout_width="290dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
@@ -125,8 +126,8 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/picPass"
-                    android:layout_width="369dp"
-                    android:layout_height="45dp"
+                    android:layout_width="290dp"
+                    android:layout_height="30dp"
                     android:layout_below="@+id/picM"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
@@ -142,7 +143,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:gravity="center_vertical"
-                        android:hint="Prénom"
+                        android:hint="Password"
                         android:textSize="18sp"
                         android:layout_marginStart="15dp" />
                 </RelativeLayout>
@@ -161,14 +162,14 @@
                 android:background="@drawable/boxshape">
                 <Button
                     android:id="@+id/logingUser"
-                    android:layout_width="374dp"
-                    android:layout_height="45dp"
+                    android:layout_width="290dp"
+                    android:layout_height="30dp"
                     android:gravity="center_vertical"
                     android:text="M'INSCRIRE"
                     android:background="#23D25B"
                     android:textColor="@color/whitecolor"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
             <TextView
                 android:id="@+id/txtinscription"
@@ -177,9 +178,8 @@
                 android:text="Nouveau avec Kungry ?"
                 android:textColor="@color/whitecolor"
                 android:layout_below="@id/loging5"
-                android:layout_marginStart="88dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginLeft="88dp" />
+                android:layout_marginStart="58dp"
+                android:layout_marginLeft="58dp" />
             <TextView
                 android:id="@+id/userInscription1"
                 android:layout_width="wrap_content"
@@ -191,7 +191,6 @@
                 android:layout_toEndOf="@+id/txtinscription"
                 android:layout_toRightOf="@+id/txtinscription"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="9dp"
                 android:layout_marginLeft="88dp" />
         </RelativeLayout>
     </RelativeLayout>

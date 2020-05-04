@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,24 +22,25 @@
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginLeft="165dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="19dp"
         android:gravity="center_horizontal"
         app:srcCompat="@drawable/ic_logo_kungry"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/iconBack"
-        android:layout_width="68dp"
-        android:layout_height="42dp"
+        android:layout_width="49dp"
+        android:layout_height="39dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="39dp"
+        android:contentDescription="TODO"
         android:gravity="center_horizontal"
         app:srcCompat="@drawable/ic_iconeback_foreground"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
 
 </RelativeLayout>

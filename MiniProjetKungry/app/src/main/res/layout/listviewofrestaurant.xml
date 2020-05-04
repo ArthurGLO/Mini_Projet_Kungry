@@ -6,31 +6,36 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_height="131dp"
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
         android:background="#ffffff"
-        android:padding="5dp">
+        android:padding="3dp">
+
         <RelativeLayout
-            android:layout_width="wrap_content"
             android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="130dp"
                 app:cardCornerRadius="3dp"
                 app:cardPreventCornerOverlap="false">
+
                 <ProgressBar
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
                     android:id="@+id/resto_progress"
                     style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
                     android:layout_gravity="center"
-                    android:theme="@style/CircularProgress"/>
+                    android:theme="@style/CircularProgress" />
+
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="153dp"
-                    android:layout_height="130dp" />
+                    android:layout_width="100dp"
+                    android:layout_height="141dp"
+                    tools:ignore="ContentDescription" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
@@ -41,15 +46,17 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginBottom="55dp"
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
+            android:paddingStart="17dp"
             android:paddingLeft="15dp"
             android:textColor="#333"
-            android:textSize="18dp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
-         <TextView
+        <TextView
             android:id="@+id/descriptiontype"
             android:layout_width="203dp"
             android:layout_height="wrap_content"
@@ -57,7 +64,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="65dp"
             android:layout_toEndOf="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:paddingLeft="15dp"
@@ -66,75 +73,73 @@
             android:textSize="14dp" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/imageView1"
-            android:layout_toRightOf="@+id/imageView1"
+            android:layout_width="247dp"
+            android:layout_height="67dp"
             android:layout_below="@+id/descriptiontype"
-            android:layout_marginTop="9dp"
             android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp">
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="-11dp"
+            android:layout_toEndOf="@+id/imageView1"
+            android:layout_toRightOf="@+id/imageView1">
 
             <RatingBar
                 android:id="@+id/MyRating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="44dp"
-                android:layout_marginTop="18dp"
-                android:foregroundGravity="center"
-                android:isIndicator="true"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="4dp"
-                android:scaleX="1.1"
-                android:scaleY="1.5"
+                android:layout_marginTop="25dp"
+                android:isIndicator="true"
                 android:max="5"
+                android:scaleX="1"
+                android:scaleY="1.5"
                 android:stepSize="0.1" />
 
             <TextView
                 android:id="@+id/reviewsCount"
                 android:layout_width="wrap_content"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_vertical"
-                android:layout_marginTop="12dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="26dp"
                 android:layout_toEndOf="@+id/MyRating"
                 android:layout_toRightOf="@+id/MyRating"
+                android:gravity="center_vertical"
                 android:paddingLeft="9dp"
                 android:text="Snack"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textdistance"
                 android:layout_width="77dp"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="55dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_vertical"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="26dp"
                 android:layout_toEndOf="@+id/reviewsCount"
                 android:layout_toRightOf="@+id/reviewsCount"
+                android:gravity="center_vertical"
                 android:paddingLeft="4dp"
                 android:text="45 km"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/marker"
                 android:layout_width="20dp"
                 android:layout_height="44dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="42dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="11dp"
                 android:layout_toEndOf="@+id/reviewsCount"
                 android:layout_toRightOf="@+id/reviewsCount"
                 android:gravity="center_vertical"
                 app:srcCompat="@drawable/ic_pin_foreground"
-                android:contentDescription="TODO" />
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 

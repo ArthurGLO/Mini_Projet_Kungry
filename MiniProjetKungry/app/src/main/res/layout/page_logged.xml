@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <include
-        android:layout_marginTop="80dp"
         android:id="@+id/cardd"
         layout="@layout/customactionbar3"
         android:layout_width="421dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="235dp"
         android:visibility="visible" />
 
     <RelativeLayout
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Mon compte"
             android:textStyle="bold"
-            android:textSize="24sp"
+            android:textSize="15sp"
             android:layout_marginTop="25dp"/>
         <TextView
             android:id="@+id/txtcmpteName"
@@ -35,7 +36,7 @@
             android:text="Nom"
             android:layout_below="@id/txtcmpte"
             android:textStyle="bold"
-            android:textSize="24sp"
+            android:textSize="15sp"
             android:layout_marginTop="25dp"/>
 
         <TextView
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:hint="name"
             android:layout_below="@id/txtcmpteName"
-            android:textSize="24sp"
+            android:textSize="12sp"
             android:layout_marginTop="2dp"/>
         <TextView
             android:id="@+id/txtcmpteEmail"
@@ -53,7 +54,7 @@
             android:text="Couriel"
             android:layout_below="@id/txtName"
             android:textStyle="bold"
-            android:textSize="24sp"
+            android:textSize="15sp"
             android:layout_marginTop="25dp"/>
         <TextView
             android:id="@+id/txtEmail"
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:hint="couriel"
             android:layout_below="@id/txtcmpteEmail"
-            android:textSize="24sp"
+            android:textSize="15sp"
             android:layout_marginTop="2dp"/>
         <TextView
             android:id="@+id/txtcmpteReviews"
@@ -70,7 +71,7 @@
             android:text="Nombre d'évaluations attribuées"
             android:layout_below="@id/txtEmail"
             android:textStyle="bold"
-            android:textSize="24sp"
+            android:textSize="15sp"
             android:layout_marginTop="25dp"/>
         <TextView
             android:id="@+id/txtReviews"
@@ -78,17 +79,17 @@
             android:layout_height="wrap_content"
             android:hint="nombre"
             android:layout_below="@id/txtcmpteReviews"
-            android:textSize="24sp"
+            android:textSize="12sp"
             android:layout_marginTop="2dp"/>
 
         <Button
             android:id="@+id/loging"
-            android:layout_width="374dp"
-            android:layout_height="63dp"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
             android:layout_below="@+id/txtReviews"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
